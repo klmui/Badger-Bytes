@@ -10,10 +10,11 @@ Web-based ordering system.
 5. Get the `.env` file from a developer
 
 ### Build Command Instructions
-1. `npm install`
-2. `cd backend`
-3. `cd frontend`
-4. `npm install`
+1. Clone the repository
+2. `npm install`
+3. `cd backend`
+4. `cd frontend`
+5. `npm install`
 
 ### Run Instructions
 1. Start local DB or use the remote one
