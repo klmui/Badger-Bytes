@@ -29,6 +29,8 @@ class Navigation extends Component {
           <LinkContainer to="/menu">
             <Nav.Link>Menu</Nav.Link>
           </LinkContainer>
+        </Nav>
+        <Nav>
           <LinkContainer to="/cart">
             <Nav.Link>Cart</Nav.Link>
           </LinkContainer>
