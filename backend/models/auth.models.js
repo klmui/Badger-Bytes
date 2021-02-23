@@ -11,7 +11,7 @@ exports.login = (req, res) => {
     };
     if (!user.username || !user.password) {
       // bad request
-      return reject({
+      reject({
         message: "Please provide a username or password."
       });
     }
@@ -20,7 +20,7 @@ exports.login = (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         console.log("Error connecting to database!");
-        return reject(err);
+        reject(err);
       } else {
         const query = `
             SELECT * 
@@ -36,10 +36,10 @@ exports.login = (req, res) => {
 
           if (error) {
             console.log("Error in query!");
-            return reject(err);
+            reject(err);
           } else if (!results || (!await bcrypt.compare(user.password, results[0].password))) {
             // Wrong password
-            return resolve({
+            resolve({
               message: "username or password is incorrect"
             });
           } else {
@@ -67,7 +67,7 @@ exports.login = (req, res) => {
 
             console.log(token);
 
-            return resolve({
+            resolve({
               username: username,
               token: token
             });
@@ -85,7 +85,7 @@ exports.logout = async (req, res) => {
       httpOnly: true
     });
 
-    return resolve({
+    resolve({
       message: "Logout successful"
     });
   });
@@ -97,7 +97,7 @@ exports.signup = (req, res) => {
     pool.getConnection(async (err, connection) => {
       if (err) {
         console.log("Error connecting to database!");
-        return reject(err);
+        reject(err);
       } else {
 
         const newUser = {
@@ -126,7 +126,7 @@ exports.signup = (req, res) => {
 
           if (error) {
             console.log("Duplicate username.");
-            return reject({
+            reject({
               message: "Duplicate username."
             });
           } else {
@@ -152,7 +152,6 @@ exports.signup = (req, res) => {
 
             resolve({
               username: newUser.username,
-              userId: results.insertId,
               token: token
             });
           }

@@ -9,7 +9,7 @@ exports.loginAction = (req, res) => {
 }
 
 exports.logoutAction = (req, res) => {
-  db.logout().then(data => {
+  db.logout(req, res).then(data => {
     res.json(data);
   }).catch(error => {
     console.log(error);

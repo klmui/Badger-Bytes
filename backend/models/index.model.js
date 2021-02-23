@@ -4,7 +4,7 @@ exports.getMenu = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) {
           console.log("Error connecting to database!");
-          return reject(err);
+          reject(err);
         } else {
           const query = `
             SELECT * FROM menu as m
@@ -15,9 +15,9 @@ exports.getMenu = (req, res) => {
             connection.release();
             if (error) {
               console.log("Error in query!");
-              return reject(err);
+              reject(err);
             } else {
-              return resolve(rows); 
+              resolve(rows); 
             }
           });
         }
