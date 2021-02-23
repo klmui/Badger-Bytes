@@ -1,7 +1,3 @@
-var {
-  promisify
-} = require('util');
-
 exports.login = (req, res) => {
   return new Promise((resolve, reject) => {
     // Create user object and validate it
@@ -11,7 +7,7 @@ exports.login = (req, res) => {
     };
     if (!user.username || !user.password) {
       // bad request
-      reject({
+      return reject({
         message: "Please provide a username or password."
       });
     }
@@ -20,7 +16,7 @@ exports.login = (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) {
         console.log("Error connecting to database!");
-        reject(err);
+        return eject(err);
       } else {
         const query = `
             SELECT * 
@@ -36,10 +32,10 @@ exports.login = (req, res) => {
 
           if (error) {
             console.log("Error in query!");
-            reject(err);
+            return reject(err);
           } else if (!results || (!await bcrypt.compare(user.password, results[0].password))) {
             // Wrong password
-            resolve({
+            return resolve({
               message: "username or password is incorrect"
             });
           } else {
@@ -67,7 +63,7 @@ exports.login = (req, res) => {
 
             console.log(token);
 
-            resolve({
+            return resolve({
               username: username,
               token: token
             });
@@ -85,7 +81,7 @@ exports.logout = async (req, res) => {
       httpOnly: true
     });
 
-    resolve({
+    return resolve({
       message: "Logout successful"
     });
   });
@@ -97,7 +93,7 @@ exports.signup = (req, res) => {
     pool.getConnection(async (err, connection) => {
       if (err) {
         console.log("Error connecting to database!");
-        reject(err);
+        return reject(err);
       } else {
 
         const newUser = {
@@ -126,7 +122,7 @@ exports.signup = (req, res) => {
 
           if (error) {
             console.log("Duplicate username.");
-            reject({
+            return reject({
               message: "Duplicate username."
             });
           } else {
@@ -150,7 +146,7 @@ exports.signup = (req, res) => {
 
             console.log(token);
 
-            resolve({
+            return resolve({
               username: newUser.username,
               token: token
             });
