@@ -3,12 +3,22 @@ require('dotenv').config();
 const express    = require("express"),
       bodyParser = require('body-parser'),
       cors       = require("cors"),
-      mysql      = require("mysql");
+      mysql      = require("mysql"),
+      jwt        = require("jsonwebtoken"),
+      bcrypt     = require("bcryptjs"),
+      cookieParser = require("cookie-parser");
 
 // Import routes
 const indexRoutes = require('./backend/routes/index.routes');
+const authRoutes = require('./backend/routes/auth.routes');
 
+// More init
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+global.bcrypt = bcrypt;
+global.jwt = jwt;
 
 let corsOption = {
   origin: "http://localhost:8081"
@@ -20,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // 'Use' routes here
 app.use('/', indexRoutes);
+app.use('/', authRoutes);
 
 // Last case: url not found
 app.get('/*', function(req, res){
