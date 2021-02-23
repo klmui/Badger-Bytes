@@ -31,8 +31,8 @@ class MenuView extends Component {
   render() {
     return (
       <>
-      <Container style={{marginTop: "1.2em"}}>
-        <h1>Menu</h1>
+      <Container>
+        <h1 className="view-header">Menu</h1>
         <MenuList menuItems={this.state.menuItems} />
       </Container>
       </>

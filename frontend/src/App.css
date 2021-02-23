@@ -46,3 +46,7 @@
 .filler {
   border: 0px !important;
 }
+
+.view-header {
+  margin-top: 0.4em;
+}
