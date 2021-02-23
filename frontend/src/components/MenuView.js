@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 
 import MenuList from './MenuList';
 
-
 class MenuView extends Component {
   constructor(props) {
     super(props);

@@ -35,7 +35,6 @@ class MenuItem extends Component {
     }
     return (
       <Card className="menu-item">
-        {/* <Card.Img variant="top" src={this.props.menu.img_src} /> */}
         <Card.Body>
           <Card.Title>
               <Row className="justify-content-between align-center align-items-top">
