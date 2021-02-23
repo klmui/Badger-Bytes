@@ -83,25 +83,69 @@ exports.signup = (req, res) => {
         console.log("Error connecting to database!");
         return reject(err);
       } else {
-        const query = `
+        const newUser = {
+          "username": req.body.username,
+          "password": req.body.password,
+          "email": req.body.email,
+          "phone_number": req.body.phoneNumber,
+          "address": req.body.address,
+          "city": req.body.city,
+          "state": req.body.state,
+          "zip": req.body.zip,
+          "car_description": req.body.carDescription,
+          "type": req.body.type
+        };
+
+        let query = `
             SELECT * 
             FROM User
             WHERE username = ?;
         `;
         var values = [
-          [user.username]
+          [newUser.username]
         ];
         connection.query(query, [values], async (error, results) => {
           // Always release the connection back
           connection.release();
 
           if (error) {
-            console.log("Error in query!");
-            return reject(err);
+            console.log("Error in query.");
+            return reject({ message: "Error in query." });
           } else {
-            const user = {
-              ""
-            }
+            // Can insert user into DB now
+            query = "INSERT INTO User (username, password, email, phone_number, address, city, state, zip, car_description, type) VALUES ?";
+             // hash password - takes awhile so we need aysnc await
+            const hashedPassword = await bcrypt.hash(newUser.password, 8);
+            const values = [
+              [newUser.username, newUser.password, newUser.email, newUser.phone_number, newUser.address, newUser.city, newUser.state, newUser.zip, newUser.car_description, newUser.type]
+            ];
+            connection.query(query, [values], (err, results) => {
+              if (err) {
+                console.log(err);
+                console.log("Error signing up. Duplicate username.");
+                reject({ message: "Error signing up. Duplicate username." });
+              } else {
+                // create token and insert cookie
+                const token = jwt.sign({ username: newUser.username }, process.env.JWT_SECRET, {
+                  expiresIn: process.env.JWT_EXPIRES_IN
+                }); 
+
+                const cookieOptions = {
+                  expires: new Date(
+                    Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                  ),
+                  httpOnly: true
+                }
+
+                // can specify any name for cookie
+                // need to decode the token to get username
+                res.cookie('jwt', token, cookieOptions);
+
+                console.log(token);
+
+                resolve({ username: newUser.username, token: token });
+              }
+            });
           }
         });
       }

@@ -1,7 +1,7 @@
-const db = '../models/auth.models.js';
+const db = require('../models/auth.models.js');
 
 exports.loginAction = (req, res) => {
-  db.login().then(data => {
+  db.login(req, res).then(data => {
     res.json(data);
   }).catch(error => {
     console.log(error);
@@ -17,7 +17,7 @@ exports.logoutAction = (req, res) => {
 }
 
 exports.signupAction = (req, res) => {
-  db.signup().then(data => {
+  db.signup(req, res).then(data => {
     res.json(data);
   }).catch(error => {
     console.log(error);
