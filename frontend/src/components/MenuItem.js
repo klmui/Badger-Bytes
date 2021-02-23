@@ -40,7 +40,8 @@ class MenuItem extends Component {
           <Card.Title>
               <Row className="justify-content-between align-center align-items-top">
                 <Col xs={10}>{this.props.menu.foodName}{this.showPrice()}</Col>
-                <Col xs={2}> <Button onClick={this.addToCart} size="sm"><AiOutlinePlus /></Button></Col>
+                {/* Show add to cart button only when item is in stock */}
+                <Col xs={2}> {(this.props.menu.quantity > 0) && <Button onClick={this.addToCart} size="sm"><AiOutlinePlus /></Button> }</Col>
               </Row>
           </Card.Title>
           <Card.Text>
