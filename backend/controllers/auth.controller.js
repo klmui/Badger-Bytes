@@ -20,6 +20,7 @@ exports.signupAction = (req, res) => {
   db.signup(req, res).then(data => {
     res.json(data);
   }).catch(error => {
-    console.log(error);
+    res.json(error);
+    //console.log(error);
   });
 }
