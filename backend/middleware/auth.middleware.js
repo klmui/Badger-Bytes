@@ -1,6 +1,6 @@
 const { promisify } = require('util');
 
-exports.isLoggedIn = async(req, res, next) => {
+exports.requireLogin = async(req, res, next) => {
   if (req.cookies.jwt) {
     try {
       // async returns a promise after the await
