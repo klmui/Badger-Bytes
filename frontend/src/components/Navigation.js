@@ -23,7 +23,7 @@ class Navigation extends Component {
                 height="30"
                 className="d-inline-block align-top"
               />{' '} */}
-              Scavenge
+              Badger Bytes
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
