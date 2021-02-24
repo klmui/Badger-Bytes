@@ -26,6 +26,7 @@ exports.requireLogin = async(req, res, next) => {
           }
           
           // Verified
+          req.user = result[0];
           next();
         });
       });
@@ -55,7 +56,7 @@ exports.requireLogin = async(req, res, next) => {
             if (!result) {
               return res.json({ message: "User is invalid!"} );
             }
-            
+            req.user = result[0];
             // Verified
             next();
           });
@@ -65,5 +66,22 @@ exports.requireLogin = async(req, res, next) => {
   } else {
     // no jwt token found
     return res.json({ message: "User is not signed in."} );
+  }
+}
+
+exports.isAdmin = (req, res, next) => {
+  if (req.user.type == "Admin") {
+    next();
+  } else {
+    return res.json({ message: "User is not an admin." });
+  }
+}
+
+exports.isStaff = (req, res, next) => {
+  // Admin has all of the rights of a staff
+  if (req.user.type == "Staff" || req.user.type == "Admin") {
+    next();
+  } else {
+    return res.json({ message: "User is not a staff or admin." });
   }
 }
