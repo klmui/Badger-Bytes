@@ -8,7 +8,7 @@ router.route('/login')
   .post(authController.loginAction);
 
 router.route('/logout')
-  .get(authMiddleware.requireLogin, authMiddleware.isStaff, authController.logoutAction);
+  .get(authMiddleware.requireLogin, authController.logoutAction);
 
 router.route('/signup')
   .post(authController.signupAction);
