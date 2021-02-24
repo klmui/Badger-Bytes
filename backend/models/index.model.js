@@ -7,7 +7,16 @@ exports.getMenu = (req, res) => {
           reject(err);
         } else {
           const query = `
-            SELECT * FROM menu as m
+            SELECT 
+              m.id as menu_id,
+              m.name as restaurant_name,
+              m.description as restaurant_description,
+              m.img_src as resturant_image,
+              f.name as food_name,
+              f.quantity,
+              f.image_src as food_image,
+              f.menu_id
+            FROM menu as m
             JOIN food as f ON m.id=f.menu_id;
           `;
           connection.query(query, (error, rows, fields) => {
