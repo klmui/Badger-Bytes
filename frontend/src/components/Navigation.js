@@ -11,7 +11,7 @@ class Navigation extends Component {
   }
   
   render() {
-    if(this.props.loginStatus){
+    if(this.props.token){
       return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>

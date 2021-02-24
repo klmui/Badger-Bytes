@@ -13,31 +13,37 @@ import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
-import { useState } from 'react';
 
 
-function App() {
-  const [state, setState] = useState({loginStatus:null})
-  const loginStatus = state.loginStatus
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: null
+    };
+  };
 
-  return (
-    <Router>
-      <div>
-        <Navigation loginStatus={loginStatus}/>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={LoginView} />
-          <Route path="/menu" component={MenuView} />
-          <Route path="/cart" component={CartView} />
-          <Route path="/profile" component={ProfileView} />
-          <Route path="/orders" component={OrdersView} />
-        </Switch>
-      </div>
-    </Router>
-  )
+  render () { 
+    return (
+      <Router>
+        <div>
+          <Navigation token={this.state.token}/>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={LoginView} />
+            <Route path="/menu" component={MenuView} />
+            <Route path="/cart" component={CartView} />
+            <Route path="/profile" component={ProfileView} />
+            <Route path="/orders" component={OrdersView} />
+          </Switch>
+        </div>
+      </Router>
+    )
+  }
 }
 
-function Home() {
+
+const Home = (props) => {
   return (
     <div className="App">
       <h1>Home</h1>
