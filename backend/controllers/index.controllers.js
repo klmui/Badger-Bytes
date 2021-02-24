@@ -15,6 +15,7 @@ exports.getMenuAction = (req, res) => {
       result['foods'][element['food_name']]['food_name'] = element['food_name'];
       result['foods'][element['food_name']]['quantity'] = element['quantity'];
       result['foods'][element['food_name']]['food_image'] = element['food_image'];
+      result['foods'][element['food_name']]['price'] = element['price'];
     });
     res.json(result);
   }).catch(err => {

@@ -15,7 +15,8 @@ exports.getMenu = (req, res) => {
               f.name as food_name,
               f.quantity,
               f.image_src as food_image,
-              f.menu_id
+              f.menu_id,
+              f.price
             FROM menu as m
             JOIN food as f ON m.id=f.menu_id;
           `;
