@@ -38,15 +38,15 @@ class MenuItem extends Component {
         <Card.Body>
           <Card.Title>
               <Row className="justify-content-between align-center align-items-top">
-                <Col xs={10}>{this.props.menu.name}{this.showPrice()}</Col>
+                <Col xs={10}>{this.props.menu.food_name}{this.showPrice()}</Col>
                 {/* Show add to cart button only when item is in stock */}
                 <Col xs={2}> {(this.props.menu.quantity > 0) && <Button onClick={this.addToCart} size="sm"><AiOutlinePlus /></Button> }</Col>
               </Row>
           </Card.Title>
           <Card.Text>
             <Row className="justify-content-between align-center">
-              <Col>{this.props.menu.description}</Col>
-              <Col><Image fluid src={this.props.menu.image_src} /></Col>
+              <Col>{this.props.menu.food_description}</Col>
+              <Col><Image fluid src={this.props.menu.food_image} /></Col>
             </Row>
           </Card.Text>
         </Card.Body>
