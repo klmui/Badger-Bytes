@@ -46,7 +46,7 @@ class MenuItem extends Component {
           <Card.Text>
             <Row className="justify-content-between align-center">
               <Col>{this.props.menu.description}</Col>
-              <Col><Image fluid src={this.props.menu.img_src} /></Col>
+              <Col><Image fluid src={this.props.menu.image_src} /></Col>
             </Row>
           </Card.Text>
         </Card.Body>
