@@ -73,10 +73,10 @@ class Navigation extends Component {
                 </LinkContainer>
               </Nav>
               <Nav>
-                <LinkContainer to="/cart">
+                <LinkContainer to="/login">
                   <Nav.Link>Login</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/orders">
+                <LinkContainer to="/signup">
                   <Nav.Link>Sign up</Nav.Link>
                 </LinkContainer>          
               </Nav>

@@ -13,6 +13,7 @@ import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
+import SignupView from './components/SignupView';
 
 
 class App extends React.Component {
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={LoginView} />
+            <Route path="/signup" component={SignupView} />
             <Route path="/menu" component={MenuView} />
             <Route path="/cart" component={CartView} />
             <Route path="/profile" component={ProfileView} />
