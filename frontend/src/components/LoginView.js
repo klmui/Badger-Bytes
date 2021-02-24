@@ -48,8 +48,8 @@ class LoginView extends Component {
           onChange={(password) => this.setState({password: password})}
           placeholder="password"
         />
-        <div className="mb-2">
-          <Button variant="dark" size={"lg"}  onClick={this.handleLogin}> Login </Button>
+        <div className="mt-2">
+          <Button variant="dark" size="md" onClick={this.handleLogin}> Login </Button>
         </div>
       </div>
       </React.Fragment>
