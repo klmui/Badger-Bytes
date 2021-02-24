@@ -3,12 +3,12 @@ exports.addFood = (req, res) => {
     // Connect to database
     pool.getConnection((err, connection) => {
       const query = `
-        INSERT INTO food (name, quantity, image_src, price) 
+        INSERT INTO food (name, description, quantity, image_src, price) 
         VALUES ?
       `;
       const values = 
       [
-        [req.body.name, req.body.quantity, req.body.image_src, req.body.price]
+        [req.body.name, req.body.description, req.body.quantity, req.body.image_src, req.body.price]
       ];
       connection.query(query, [values], (error, rows, fields) => {
         // Always release the connection back
@@ -31,10 +31,10 @@ exports.updateFood = (req, res) => {
     pool.getConnection((err, connection) => {
       const query = `
         UPDATE food
-        SET name = ?, quantity = ?, image_src = ?, price = ?
+        SET name = ?, description = ?, quantity = ?, image_src = ?, price = ?
         WHERE id = ?
       `;
-      const values = [req.body.name, req.body.quantity, req.body.image_src, req.body.price, req.params.id];
+      const values = [req.body.name, req.body.description, req.body.quantity, req.body.image_src, req.body.price, req.params.id];
       connection.query(query, values, (error, rows, fields) => {
         // Always release the connection back
         connection.release();
