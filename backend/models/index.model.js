@@ -11,7 +11,7 @@ exports.getMenu = (req, res) => {
               m.id as menu_id,
               m.name as restaurant_name,
               m.description as restaurant_description,
-              m.img_src as resturant_image,
+              m.img_src as restaurant_image,
               f.name as food_name,
               f.quantity,
               f.image_src as food_image,
