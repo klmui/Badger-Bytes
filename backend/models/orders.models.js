@@ -9,13 +9,13 @@ exports.getOrders = (req, res) => {
           const query = `
             SELECT *
             FROM user_order
-            WHERE username = "kenny";
+            WHERE username = ?;
           `;
-          // hardcoded for right now because I'm not sure now to make this be the current user
-          //values = [
-          //  []
-          //]
-          connection.query(query, (error, rows, fields) => {
+          
+          const values = [
+           [req.params.username]
+          ];
+          connection.query(query, [values], (error, rows, fields) => {
             // Always release the connection back
             connection.release();
             if (error) {
