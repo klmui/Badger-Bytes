@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container';
+
+import Cart from './Cart';
 
 class CartView extends Component {
   constructor(props) {
@@ -7,7 +10,13 @@ class CartView extends Component {
   
   render() {
     return (
-      <h1>Welcome to CartView!</h1>
+      <>
+      <Container>
+        <h1 className="view-header">Your Cart</h1>
+        <Cart cartItems={this.props.cartItems} 
+              removeFromCart={this.props.removeFromCart} />
+      </Container>
+      </>
     );
   }
 }
