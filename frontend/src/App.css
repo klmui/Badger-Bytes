@@ -56,18 +56,18 @@
 /* Cart */
 @media screen and (max-width: 540px) {
   .quantityCol {
-    width: 27.04%
+    width: 29.04%
   }
 }
 
 @media screen and (min-width: 540px) and (max-width: 780px) {
   .quantityCol {
-    width: 17%
+    width: 20%
   }
 }
 
 @media screen and (min-width: 780px) {
   .quantityCol {
-    width: 10%
+    width: 14%
   }
 }
