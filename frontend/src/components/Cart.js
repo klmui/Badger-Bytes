@@ -17,7 +17,7 @@ class Cart extends Component {
     let cartItemList = [];
     for (const [idx, item] of this.props.cartItems.entries()) {
       cartItemList.push(
-        <CartItem key={item.food_name} idx={idx+1} item={item} removeFromCart={this.props.removeFromCart} />
+        <CartItem key={item.food_name} idx={idx+1} item={item} removeFromCart={this.props.removeFromCart} updateCartItem={this.props.updateCartItem} />
       );
     }
 

@@ -97,6 +97,31 @@ class App extends Component {
     localStorage.setItem('cart', cartString);
   }
 
+  updateCartItem = (item, quantity) => {
+    let cartCopy = [...this.state.cartItems];
+
+    // check if item exists
+    let cartItem = cartCopy.find( cartItem => {
+      return cartItem.food_name === item.food_name
+    })
+
+    if (!cartItem) return;
+
+    cartItem.cartQuantity = quantity
+
+    if (item.cartQuantity <= 0) {
+      cartCopy = cartCopy.filter((item) => {
+        return item.food_name !== cartItem.food_name;
+      })
+    }
+
+    this.setCartItems(cartCopy)
+
+    // store in localStorage
+    let cartString = JSON.stringify(cartCopy);
+    localStorage.setItem('cart', cartString);
+  }
+
   render() {
     return (
       <Router>
@@ -110,6 +135,7 @@ class App extends Component {
                                                     addToCart={this.addToCart.bind(this)} />} />
             <Route path="/cart" component={() => <CartView 
                                                     cartItems={this.state.cartItems} 
+                                                    updateCartItem={this.updateCartItem.bind(this)}
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
             <Route path="/profile" component={ProfileView} />
             <Route path="/orders" component={OrdersView} />

@@ -14,6 +14,7 @@ class CartView extends Component {
       <Container>
         <h1 className="view-header">Your Cart</h1>
         <Cart cartItems={this.props.cartItems} 
+              updateCartItem={this.props.updateCartItem}
               removeFromCart={this.props.removeFromCart} />
       </Container>
       </>
