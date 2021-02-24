@@ -14,6 +14,8 @@ import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
+import CheckoutView from './components/CheckoutView';
+
 import MenuService from './services/menu.service'
 
 class App extends Component {
@@ -111,6 +113,7 @@ class App extends Component {
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
             <Route path="/profile" component={ProfileView} />
             <Route path="/orders" component={OrdersView} />
+            <Route path="/checkout" component={CheckoutView} />
           </Switch>
         </div>
       </Router>

@@ -49,8 +49,7 @@ class Cart extends Component {
                 {this.getCartItems()}
               </tbody>
             </Table>
-            <Link to='/'>
-              {/* TODO: Make a checkout view */}
+            <Link to='/checkout'>
               <Button variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
             </Link>
           </>
