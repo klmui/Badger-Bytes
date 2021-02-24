@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
+import { AiFillDelete } from 'react-icons/ai'
 
 class CartItem extends Component {
   constructor(props) {
@@ -34,17 +35,17 @@ class CartItem extends Component {
           <td>{this.props.item.food_name}</td>
           <td>${this.props.item.price}</td>
           <td>
-            <InputGroup>
+            <InputGroup size="sm">
               <InputGroup.Prepend>
-                <Button onClick={this.incrementQuantity} variant="outline-secondary">+</Button>
+                <Button onClick={this.incrementQuantity} variant="outline-primary">+</Button>
               </InputGroup.Prepend>
               <FormControl value={this.props.item.cartQuantity} aria-describedby="basic-addon1" />
               <InputGroup.Append>
-                <Button onClick={this.decrementQuantity} variant="outline-secondary">-</Button>
+                <Button onClick={this.decrementQuantity} variant="outline-warning">-</Button>
               </InputGroup.Append>
             </InputGroup>
           </td>
-          <td><Button onClick={this.removeFromCart} variant="danger">Remove</Button></td>
+          <td><Button size="sm" onClick={this.removeFromCart} variant="danger"><AiFillDelete /></Button></td>
         </tr>
       </>
     );

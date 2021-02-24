@@ -39,10 +39,10 @@ class Cart extends Component {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Menu</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th></th>
+                  <th style={{}}>Menu</th>
+                  <th style={{}}>Price</th>
+                  <th className="quantityCol">Quantity</th>
+                  <th ></th>
                 </tr>
               </thead>
               <tbody>
