@@ -13,13 +13,17 @@ import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
+import { useState } from 'react';
 
 
 function App() {
+  const [state, setState] = useState({loginStatus:null})
+  const loginStatus = state.loginStatus
+
   return (
     <Router>
       <div>
-        <Navigation />
+        <Navigation loginStatus={loginStatus}/>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={LoginView} />
