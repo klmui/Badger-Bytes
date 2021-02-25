@@ -47,6 +47,7 @@ class App extends Component {
     AuthService
       .signup(user)
       .then((response) => {
+        console.log("RESPONSE", response);
         this.setState({
           username: response.username,
           token: response.token
@@ -142,7 +143,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navigation />
+          <Navigation token={this.state} />
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />
