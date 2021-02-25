@@ -15,6 +15,7 @@ import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
 import SignupView from './components/SignupView';
 
+import AuthService from './services/auth.service';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +24,20 @@ class App extends React.Component {
       username: null,
       token: null
     };
+    this.signup = this.signup.bind(this);
   };
+
+  signup(user) {
+    AuthService
+      .signup(user)
+      .then((response) => {
+        console.log("response", response);
+        this.setState({
+          username: response.username,
+          token: response.token
+        });
+      });
+  }
 
   render () { 
     return (
@@ -33,7 +47,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={LoginView} />
-            <Route path="/signup" component={SignupView} />
+            <Route path="/signup" component={() => <SignupView signup={this.signup} />} />            
             <Route path="/menu" component={MenuView} />
             <Route path="/cart" component={CartView} />
             <Route path="/profile" component={ProfileView} />

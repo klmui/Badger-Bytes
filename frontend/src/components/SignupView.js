@@ -15,6 +15,23 @@ class SignupView extends Component {
       type:"",
       email:""
     }
+    this.submitForm = this.submitForm.bind(this);
+  }
+
+  submitForm() {
+    const user = {
+      "username": this.state.username,
+      "password": this.state.password,
+      "phone_number": this.state.phoneNumber,
+      "address": this.state.address,
+      "city": this.state.city,
+      "state": this.state.state,
+      "zip": this.state.zip,
+      "car_description": this.state.car_description,
+      "type": this.state.type,
+      "email": this.state.email
+    }
+    this.props.signup(user);
   }
   
   render() {
@@ -83,7 +100,7 @@ class SignupView extends Component {
             </Form.Group>
         </Form.Row>
           
-          <Button variant="primary" type="submit" style={{marginLeft:"20px"}}>
+          <Button variant="primary" type="submit" style={{marginLeft:"20px"}} onClick={this.submitForm}>
             Submit
           </Button>
         </Form>
