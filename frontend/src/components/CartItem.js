@@ -34,18 +34,31 @@ class CartItem extends Component {
           <td>{this.props.idx}</td>
           <td>{this.props.item.food_name}</td>
           <td>${this.props.item.price}</td>
-          <td>
-            <InputGroup size="sm">
-              <InputGroup.Prepend>
-                <Button onClick={this.incrementQuantity} variant="outline-primary">+</Button>
-              </InputGroup.Prepend>
-              <FormControl value={this.props.item.cartQuantity} aria-describedby="basic-addon1" />
-              <InputGroup.Append>
-                <Button onClick={this.decrementQuantity} variant="outline-warning">-</Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </td>
-          <td><Button size="sm" onClick={this.removeFromCart} variant="danger"><AiFillDelete /></Button></td>
+          {/* Hide controls when in checkout mode */}
+          {(!this.props.checkoutMode) ? (
+            <>
+              <td>
+                <InputGroup size="sm">
+                  <InputGroup.Prepend>
+                    <Button onClick={this.incrementQuantity} variant="outline-primary">+</Button>
+                  </InputGroup.Prepend>
+                  <FormControl value={this.props.item.cartQuantity} aria-describedby="basic-addon1" />
+                  <InputGroup.Append>
+                    <Button onClick={this.decrementQuantity} variant="outline-warning">-</Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </td>
+              <td>
+                {(!this.props.checkoutMode) &&
+                  <Button size="sm" onClick={this.removeFromCart} variant="danger"><AiFillDelete /></Button>
+                }
+              </td>
+            </>
+          ) : <>
+                <td>{this.props.item.cartQuantity}</td>
+                <td></td>
+              </>
+          }
         </tr>
       </>
     );
