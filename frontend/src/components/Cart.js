@@ -59,7 +59,7 @@ class Cart extends Component {
                 pathname: '/checkout',
                 state: { cartItems: this.props.cartItems }
               }}>
-                <Button variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
+                <Button size="lg" variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
               </Link>
             )}
           </>
