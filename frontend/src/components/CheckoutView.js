@@ -44,10 +44,16 @@ class CheckoutView extends Component {
     )
   }
 
+  convertTimeToISO() {
+    let datetime = new Date();
+    datetime.setHours(0, 0, this.state.time, 0);
+    return datetime.toISOString();
+  }
+
   submitOrder(){
     // TODO: actually post to /order
     
-    alert("TODO: pickuptime: " + this.state.time  + ' car: ' + this.state.carDescription + ' payment: ' + this.state.paymentMethod)
+    alert("TODO: pickuptime: " + this.convertTimeToISO() + ' car: ' + this.state.carDescription + ' payment: ' + this.state.paymentMethod)
   }
 
   goBack() {
