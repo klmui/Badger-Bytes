@@ -13,17 +13,18 @@ class LoginView extends Component {
   }
 
   handleLogin() {
+    console.log("user:" + this.state.username);
     fetch('http://localhost:8080/login', {
       method: 'POST',
       body: JSON.stringify({
-        "username": this.state.username,
-        "password": this.state.password
+        username: this.state.username,
+        password: this.state.password
       })
     })
       .then(res => res.json())
       .then(res => {
         if (res.token) {
-          this.props.history.push("/");
+          this.props.history.push("/home");
         } else {
           alert("Incorrect username or password! Please try again.");
         }
@@ -31,6 +32,7 @@ class LoginView extends Component {
   }
 
   render() {
+    console.log(this.state.username);
     return (
       <React.Fragment>
       <div className="container">
@@ -38,19 +40,21 @@ class LoginView extends Component {
         <p>Enter username</p>
         <input
           type="text"
-          onChange={event => this.setState({username: event.target.value})}
+          value = this.state.username
+          onChange={(username) => this.setState({username: username})}
           placeholder="username"
         />
         <br />
         <br />
         <p>Enter password</p>
         <input
-          type="password"
-          onChange={event => this.setState({password: event.target.value})}
+          type="text"
+          value={this.state.password}
+          onChange={(password) => this.setState({password: password})}
           placeholder="password"
         />
-        <div className="mt-2">
-          <Button variant="dark" size="md" onClick={this.handleLogin}> Login </Button>
+        <div className="mb-2">
+          <Button variant="dark" size={"lg"}  onClick={this.handleLogin}> Login </Button>
         </div>
       </div>
       </React.Fragment>
