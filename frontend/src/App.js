@@ -31,7 +31,6 @@ class App extends React.Component {
     AuthService
       .signup(user)
       .then((response) => {
-        console.log("response", response);
         this.setState({
           username: response.username,
           token: response.token
