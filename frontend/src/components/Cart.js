@@ -17,7 +17,12 @@ class Cart extends Component {
     let cartItemList = [];
     for (const [idx, item] of this.props.cartItems.entries()) {
       cartItemList.push(
-        <CartItem key={item.food_name} idx={idx+1} item={item} removeFromCart={this.props.removeFromCart} updateCartItem={this.props.updateCartItem} />
+        <CartItem key={item.food_name}
+                  idx={idx+1} 
+                  item={item} 
+                  removeFromCart={this.props.removeFromCart} 
+                  updateCartItem={this.props.updateCartItem} 
+                  checkoutMode={this.props.checkoutMode}/>
       );
     }
 
@@ -49,9 +54,14 @@ class Cart extends Component {
                 {this.getCartItems()}
               </tbody>
             </Table>
-            <Link to='/checkout'>
-              <Button variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
-            </Link>
+            {!this.props.checkoutMode && (
+              <Link to={{
+                pathname: '/checkout',
+                state: { cartItems: this.props.cartItems }
+              }}>
+                <Button variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
+              </Link>
+            )}
           </>
         ) : (
           <h3>No items</h3>
