@@ -14,9 +14,11 @@ import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
-import CheckoutView from './components/CheckoutView';
 
+import CheckoutView from './components/CheckoutView';
+import SignupView from './components/SignupView';
 import MenuService from './services/menu.service'
+import AuthService from './services/auth.service';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +26,10 @@ class App extends Component {
     this.state = {
       cartItems: [],
       menuItems: [],
+      username: null,
+      token: null
     }
+    this.signup = this.signup.bind(this);
   }
 
   componentDidMount(){
@@ -36,6 +41,17 @@ class App extends Component {
     }
 
     this.fetchMenuList();
+  }
+  
+  signup(user) {
+    AuthService
+      .signup(user)
+      .then((response) => {
+        this.setState({
+          username: response.username,
+          token: response.token
+        });
+      });
   }
 
   fetchMenuList() {
@@ -130,6 +146,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />
+            <Route path="/signup" component={() => <SignupView signup={this.signup} />} />    
             <Route path="/menu" component={() => <MenuView 
                                                     menuItems={this.state.menuItems}
                                                     addToCart={this.addToCart.bind(this)} />} />

@@ -7,4 +7,22 @@ The `controllers` folder includes all of the functions that are called by the `r
 
 The `models` folder includes all of the functions that are called by the `controllers` folder. Each function in this folder is simply a query. They will use prepared statements to prevent SQL injections.
 
+Template for a function in the models
+```
+exports.deleteFood = (req, res) => {
+  return new Promise((resolve, reject) => {
+    // Connect to database
+    pool.getConnection((err, connection) => {
+      const query = `
+        // query here
+      `;
+      connection.query(query, (error, rows, fields) => {
+        // Always release the connection back
+        connection.release();
+      });
+    });
+  });
+}
+```
+
 The `middleware` folder includes functions that will be called by the `routes` folder. An example of a middleware function is something that checks if the user is signed in or not. 
