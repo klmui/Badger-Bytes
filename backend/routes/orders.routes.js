@@ -11,5 +11,4 @@ router.route('/orders/:username')
 router.route('/orders')
   .get(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.getRestOrdersAction);
 
-
 module.exports = router; // We need this at the end of every route file
