@@ -34,7 +34,6 @@ class Navigation extends Component {
       case "Signup":
         return "/signup";
       default:
-        console.log("Shouldn't execute this!");
         return "/";
     }
   }

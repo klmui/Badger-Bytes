@@ -25,10 +25,10 @@ class App extends Component {
       username: null,
       token: null,
       profile: null,
-      type: null,
     };
     this.signup = this.signup.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.editProfile = this.editProfile.bind(this);
   }
 
   componentDidMount() {
@@ -44,14 +44,11 @@ class App extends Component {
 
   signup(user) {
     AuthService.signup(user).then((response) => {
-      // console.log("RESPONSE", response);
-      // console.log("RESPONSE.username", response.username);
-      // console.log("RESPONSE.token", response.token);
-      // console.log("RESPONSE.type", response.type);
+      //console.log("RESPONSE", response);
       this.setState({
         username: response.username,
         token: response.token,
-        type: response.type,
+        profile: response.profile,
       });
     });
   }
@@ -61,7 +58,17 @@ class App extends Component {
       this.setState({
         username: response.username,
         token: response.token,
-        profile: response,
+        profile: response.profile,
+      });
+    });
+  }
+
+  editProfile(user) {
+    AuthService.editProfile(user).then((response) => {
+      this.setState({
+        username: response.username,
+        token: response.token,
+        profile: response.profile,
       });
     });
   }
@@ -205,7 +212,17 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/profile" component={ProfileView} />
+            <Route
+              path="/profile"
+              component={() => (
+                <ProfileView
+                  editProfile={this.editProfile.bind(this)}
+                  profile={this.state.profile}
+                  username={this.state.username}
+                  token={this.state.token}
+                />
+              )}
+            />
             <Route path="/logout" component={HomeView} />
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />

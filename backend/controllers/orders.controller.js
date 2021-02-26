@@ -18,3 +18,12 @@ exports.getRestOrdersAction = (req, res) => {
     console.log(err);
   });
 }
+
+exports.submitOrderAction = (req, res) => {
+  // Interact with the model
+  db.submitOrder(req, res).then(data => {
+    return res.json(data);
+  }).catch(err => {
+    console.log(err);
+  });
+}

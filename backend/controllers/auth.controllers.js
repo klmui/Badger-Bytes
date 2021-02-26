@@ -40,3 +40,13 @@ exports.updateUserAction = (req, res) => {
       res.json(error);
     });
 };
+
+exports.deleteUserAction = (req, res) => {
+  db.deleteUser(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};
