@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Col, Form, Button, Container } from 'react-bootstrap';
 import '../css/LoginView.css';
+import { Link } from "react-router-dom";
 
 class LoginView extends Component {
   constructor(props) {
@@ -36,9 +37,11 @@ class LoginView extends Component {
               <Form.Control type={"password"} placeholder="password" value={this.state.password} style={{width:"150px"}} onChange={e => this.setState({password: e.target.value})}/>
             </Form.Group>
           </Form.Row>
-          <Button variant="dark" style={{marginLeft:"30px"}} onClick={this.submitForm}>
-            Login
-          </Button>
+          <Link to={{
+            pathname: '/'
+          }}>
+            <Button variant="dark" style={{marginLeft:"30px"}} onClick={this.submitForm}>Login</Button>
+          </Link>
         </Form>
       </Container>
     );

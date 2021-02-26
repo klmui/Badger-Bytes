@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import {Col, Form, Button, Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 class SignupView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password:"",
-      address:"",
-      city:"",
-      state:"",
-      zip:"",
-      car_desription:"",
-      type:"",
-      email:""
+      username: null,
+      password:null,
+      address:null,
+      city:null,
+      state:null,
+      zip:null,
+      car_desription:null,
+      type:null,
+      email:null,
+      phone_number:null
     }
     this.submitForm = this.submitForm.bind(this);
   }
@@ -72,6 +74,13 @@ class SignupView extends Component {
           </Form.Row>
 
           <Form.Row>
+            <Form.Group as={Col} controlId="formControlsPhone" style={{paddingLeft:"20px", paddingRight:"20px"}}>
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type={"number"} value={this.state.phone_number} onChange={e => this.setState({phone_number: e.target.value})}/>
+              </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
             <Form.Group as={Col} controlId="formGridCity" style={{paddingLeft:"20px"}}>
               <Form.Label>City</Form.Label>
               <Form.Control type={"text"} value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
@@ -99,10 +108,13 @@ class SignupView extends Component {
                 </Form.Control>
             </Form.Group>
         </Form.Row>
-          
-          <Button variant="primary" style={{marginLeft:"20px"}} onClick={this.submitForm}>
-            Submit
-          </Button>
+
+        
+          <Link to={{
+            pathname: '/'
+          }}>
+            <Button variant="primary" style={{marginLeft:"20px"}} onClick={this.submitForm}>Submit</Button>
+          </Link>
         </Form>
       </Container>
     );
