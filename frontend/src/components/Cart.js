@@ -58,7 +58,11 @@ class Cart extends Component {
             {!this.props.checkoutMode && (
               <Link to={{
                 pathname: '/checkout',
-                state: { cartItems: this.props.cartItems }
+                state: { 
+                  cartItems: this.props.cartItems, 
+                  profile: this.props.profile,
+                  username: this.props.username,
+                }
               }}>
                 <Button size="lg" variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
               </Link>

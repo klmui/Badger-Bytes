@@ -13,20 +13,20 @@ class CheckoutView extends Component {
     super(props);
     
     this.state = {
-      user: {
-        username: "ilkyu" // TODO: dummy user object-- change to real user obj
-      }, 
-      cartItems: [],
       time: 36000, // 10am
       carDescription: '',
+      cartItems: [],
+      username: '',
       paymentMethod: 'APPLE_PAY' // TODO: should default to user's preferred payment method
     }
   }
 
   componentDidMount() {
-    const { cartItems } = this.props.location.state;
+    const { cartItems, profile, username } = this.props.location.state;
     this.setState({
-      cartItems: cartItems
+      cartItems: cartItems,
+      carDescription: profile.carDescription,
+      username: username,
     })
   }
 
@@ -55,7 +55,7 @@ class CheckoutView extends Component {
   }
 
   submitOrder(){
-    let foods = [... this.state.cartItems];
+    let foods = [...this.state.cartItems];
 
     foods.forEach((food) => {
       food.foodId = food.food_id; // @Frontend: please keep the naming coherent (food_id vs foodId)
@@ -64,7 +64,8 @@ class CheckoutView extends Component {
     })
 
     let orderForm = {
-      username: this.state.user.username, //TODO: change to props
+      username: this.state.username,
+      carDescription: this.state.carDescription,
       paymentType: this.state.paymentMethod,
       orderDateTime: new Date().toISOString(),
       pickupDateTime: this.convertTimeToISO(),
