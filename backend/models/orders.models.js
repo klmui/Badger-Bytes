@@ -11,16 +11,14 @@ exports.getOrders = (req, res) => {
             o.id as order_id,
             o.order_date_time, 
             o.pickup_date_time, 
-            o.payment_id, 
             o.completed,
             o.username, 
-            p.payment_type, 
+            o.payment_type, 
             s.food_id, 
             f.name as food_name, 
             s.quantity_served, 
             f.price as unit_price
           FROM user_order o
-          JOIN user_payment p ON o.payment_id = p.id
           JOIN served s ON s.user_order_id = o.id
           JOIN food f ON s.food_id = f.id
           WHERE o.username = ?
