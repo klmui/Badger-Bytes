@@ -10,7 +10,7 @@ function getAllOrders() {
 
 function getUserOrders(username) {
     return request({
-        url: '/orders/username',
+        url: '/orders/' + username,
         method: 'GET',
         withCredentials: true,
     })
