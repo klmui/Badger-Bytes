@@ -44,6 +44,9 @@ class Navigation extends Component {
                 <LinkContainer to="/profile">
                   <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to="/logout" onClick={this.props.signOut}>
+                  <Nav.Link>Log out</Nav.Link>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </Container>

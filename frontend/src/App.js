@@ -22,9 +22,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: null,
-      token: null
+      token: null,
+      profile:null,
     };
     this.signup = this.signup.bind(this);
+    this.signOut = this.signOut.bind(this);
   };
 
   signup(user) {
@@ -34,23 +36,29 @@ class App extends React.Component {
         console.log("response", response);
         this.setState({
           username: response.username,
-          token: response.token
+          token: response.token,
+          profile: response
         });
       });
+  }
+
+  signOut(){
+    this.setState({token:null})
   }
 
   render () { 
     return (
       <Router>
         <div>
-          <Navigation token={this.state.token}/>
+          <Navigation token={this.state.token} signOut={this.signOut}/>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={LoginView} />
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />            
             <Route path="/menu" component={MenuView} />
             <Route path="/cart" component={CartView} />
-            <Route path="/profile" component={ProfileView} />
+            <Route path="/profile" component={()=> <ProfileView profile={this.state.profile}/> }/>
+            <Route path="/logout" component={Home}/>
             <Route path="/orders" component={OrdersView} />
           </Switch>
         </div>
