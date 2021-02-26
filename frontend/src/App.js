@@ -27,9 +27,11 @@ class App extends Component {
       cartItems: [],
       menuItems: [],
       username: null,
-      token: null
+      token: null,
     }
     this.signup = this.signup.bind(this);
+    this.editProfile = this.editProfile.bind(this);
+
   }
 
   componentDidMount(){
@@ -66,6 +68,17 @@ class App extends Component {
       });
   }
 
+  editProfile(user){
+    AuthService
+      .editProfile(user)
+      .then((response) => {
+      this.setState({
+        username: response.username,
+        token: response.token,
+      });
+    });
+  }
+
   render () { 
     return (
       <Router>
@@ -77,7 +90,7 @@ class App extends Component {
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />            
             <Route path="/menu" component={MenuView} />
             <Route path="/cart" component={CartView} />
-            <Route path="/profile" component={ProfileView} />
+            <Route path="/profile" component={() => <ProfileView editProfile={this.editProfile.bind(this)} username={this.state.username} token={this.state.token}/>} />
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />
           </Switch>
