@@ -19,7 +19,6 @@ import CheckoutView from './components/CheckoutView';
 import SignupView from './components/SignupView';
 import MenuService from './services/menu.service'
 import AuthService from './services/auth.service';
-import LoginService from './services/login.service'
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +30,6 @@ class App extends Component {
       token: null
     }
     this.signup = this.signup.bind(this);
-    this.login = this.login.bind(this);
   }
 
   componentDidMount(){
@@ -49,7 +47,6 @@ class App extends Component {
     AuthService
       .signup(user)
       .then((response) => {
-        console.log("RESPONSE", response);
         this.setState({
           username: response.username,
           token: response.token
@@ -58,10 +55,9 @@ class App extends Component {
   }
 
   login(user) {
-    LoginService
+    AuthService
       .login(user)
       .then((response) => {
-        console.log("RESPONSE", response);
         this.setState({
           username: response.username,
           token: response.token
@@ -160,7 +156,7 @@ class App extends Component {
           <Navigation token={this.state} />
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route path="/login" component={() =><LoginView login={this.login}/>} />
+            <Route path="/login" component={() => <LoginView login={this.login.bind(this)} />} />
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />
             <Route path="/menu" component={() => <MenuView
                                                     menuItems={this.state.menuItems}
