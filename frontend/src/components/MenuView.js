@@ -55,7 +55,7 @@ class MenuView extends Component {
         <Container>
           <Row className="justify-content-between align-items-center">
             <Col>
-              <h1 className="view-header">Welcome to Menu Page!</h1>
+              <h1 className="view-header">Menu</h1>
             </Col>
             {this.showAddFoodButton()}
           </Row>

@@ -221,7 +221,7 @@ class MenuItem extends Component {
 
     if (this.state.quantity > 0) {
       return (
-        <Col xs={3}>
+        <Col xs={4} md={3}>
           {this.buttonAddToCart()}
           {/* Only visible to staff/admins */}
           {this.buttonToggleEditMode()}
@@ -241,7 +241,7 @@ class MenuItem extends Component {
   buttonToggleEditMode = () => {
     if (this.userIsStaff()){
       return (
-        <Button style={{marginLeft: "0.5rem"}} onClick={this.toggleEditMode.bind(this)} size="sm">
+        <Button className="float-right" style={{marginLeft: "0.5rem"}} onClick={this.toggleEditMode.bind(this)} size="sm">
           <AiOutlineEdit />
         </Button>
       )
