@@ -39,6 +39,17 @@ class App extends React.Component {
       });
   }
 
+  login(user) {
+    AuthService
+      .login(user)
+      .then((response) => {
+        this.setState({
+          username: response.username,
+          token: response.token
+        });
+      });
+  }
+
   render () { 
     return (
       <Router>
@@ -46,7 +57,7 @@ class App extends React.Component {
           <Navigation token={this.state.token}/>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={LoginView} />
+            <Route path="/login" component={() => <LoginView login={this.login.bind(this)} />} />
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />            
             <Route path="/menu" component={MenuView} />
             <Route path="/cart" component={CartView} />
