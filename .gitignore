@@ -3,9 +3,3 @@ node_modules/
 
 # virtual env
 venv/
-
-# includes the database password
-env
-
-# React practice
-react-app/
