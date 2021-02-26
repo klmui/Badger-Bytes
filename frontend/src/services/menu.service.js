@@ -1,10 +1,10 @@
-import request from './request';
+import request from './request'
 
 function getList() {
     return request({
         url: '/',
         method: 'GET'
-    });
+    })
 }
 
 // TODO

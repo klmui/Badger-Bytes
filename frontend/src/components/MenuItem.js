@@ -26,7 +26,7 @@ class MenuItem extends Component {
 
   addToCart() {
     // TODO
-    alert("TODO: Should add " + this.props.menu.name + " to cart!")
+    this.props.addToCart(this.props.menu)
   }
   
   render() {

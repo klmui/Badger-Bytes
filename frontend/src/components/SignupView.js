@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Col, Form, Button, Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 class SignupView extends Component {
   constructor(props) {
@@ -99,7 +100,7 @@ class SignupView extends Component {
         <Form.Row>
           <Form.Group as={Col} controlId="formGridType"style={{paddingLeft:"20px", paddingRight:"20px"}} >
                 <Form.Label>Type</Form.Label>
-                <Form.Control as="select" defaultValue="Choose..." value={this.state.type} onChange={e => this.setState({type: e.target.value})}>
+                <Form.Control as="select" value={this.state.type} onChange={e => this.setState({type: e.target.value})}>
                   <option>Choose</option>
                   <option>Customer</option>
                   <option>Staff</option>
@@ -109,10 +110,11 @@ class SignupView extends Component {
         </Form.Row>
 
         
-          
-          <Button variant="primary" type="submit" style={{marginLeft:"20px"}} onClick={this.submitForm}>
-            Submit
-          </Button>
+          <Link to={{
+            pathname: '/'
+          }}>
+            <Button variant="primary" style={{marginLeft:"20px"}} onClick={this.submitForm}>Submit</Button>
+          </Link>
         </Form>
       </Container>
     );
