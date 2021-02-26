@@ -14,9 +14,7 @@ router.route('/signup')
   .post(authController.signupAction);
 
 router.route('/:username')
-  .put(authMiddleware.requireLogin, authController.updateUserAction);
-
-router.route('/user/:username')
+  .put(authMiddleware.requireLogin, authController.updateUserAction)
   .delete(authMiddleware.requireLogin, authController.deleteUserAction);
 
 module.exports = router; // We need this at the end of every route file
