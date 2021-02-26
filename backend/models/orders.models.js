@@ -110,7 +110,6 @@ exports.submitOrder = (req, res) => {
           WHERE id = ?
         `;
 
-          let foodsTableValues = [];
           let servedTableValues = [];
 
           req.body.foods.forEach(food => {
@@ -141,7 +140,7 @@ exports.submitOrder = (req, res) => {
               console.log("Error in query 2!");
               reject(err);
             } else {
-              resolve({ message: "Order successful!" });
+              resolve({ message: "Order successful!", orderId: orderId });
             }
           });
         }

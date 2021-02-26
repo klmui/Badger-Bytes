@@ -6,16 +6,16 @@ class SignupView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password:null,
-      address:null,
-      city:null,
-      state:null,
-      zip:null,
-      car_desription:null,
-      type:null,
-      email:null,
-      phone_number:null
+      username: "",
+      password:"",
+      address:"",
+      city:"",
+      state:"",
+      zip:"",
+      car_desription:"",
+      type:"",
+      email:"",
+      phone_number:""
     }
     this.submitForm = this.submitForm.bind(this);
   }
@@ -33,6 +33,12 @@ class SignupView extends Component {
       "type": this.state.type,
       "email": this.state.email
     }
+
+    if (this.state.username.length == 0 || this.state.password.length == 0) {
+      alert("Username or password field is empty.");
+      return;
+    }
+
     this.props.signup(user);
   }
   
@@ -76,7 +82,7 @@ class SignupView extends Component {
           <Form.Row>
             <Form.Group as={Col} controlId="formControlsPhone" style={{paddingLeft:"20px", paddingRight:"20px"}}>
                 <Form.Label>Phone Number</Form.Label>
-                <Form.Control type={"number"} value={this.state.phone_number} onChange={e => this.setState({phone_number: e.target.value})}/>
+                <Form.Control type={"text"} value={this.state.phone_number} onChange={e => this.setState({phone_number: e.target.value})}/>
               </Form.Group>
           </Form.Row>
 
@@ -93,7 +99,7 @@ class SignupView extends Component {
 
             <Form.Group as={Col} controlId="formGridZip" style={{paddingRight:"20px"}}>
               <Form.Label>Zip</Form.Label>
-              <Form.Control type={"number"} value={this.zip} onChange={e => this.setState({zip: e.target.value})}/>
+              <Form.Control type={"number"} value={this.state.zip} onChange={e => this.setState({zip: e.target.value})}/>
             </Form.Group>
           </Form.Row>
         

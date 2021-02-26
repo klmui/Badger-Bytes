@@ -30,6 +30,24 @@ function login(user) {
   });
 }
 
+function editProfile(user){
+  return request({
+    url: '/' + user.username,
+    method: 'POST',
+    data: {
+      "username": user.username,
+      "password": user.password,
+      "phone_number": user.phoneNumber,
+      "address": user.address,
+      "city": user.city,
+      "state": user.state,
+      "zip": user.zip,
+      "car_description": user.car_description,
+      "type": user.type,
+      "email": user.email
+    }
+  });
+}
 function logout(user) {
   return request({
     url: '/logout',
@@ -39,7 +57,7 @@ function logout(user) {
 }
 
 const AuthService = {
-  signup, login
+  signup, login, editProfile
 }
 
 export default AuthService;

@@ -32,6 +32,7 @@ class App extends Component {
     };
     this.signup = this.signup.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.editProfile = this.editProfile.bind(this);
   }
 
   componentDidMount(){
@@ -52,7 +53,8 @@ class App extends Component {
         //console.log("RESPONSE", response);
         this.setState({
           username: response.username,
-          token: response.token
+          token: response.token,
+          profile: response.profile
         });
       });
   }
@@ -64,9 +66,21 @@ class App extends Component {
         this.setState({
           username: response.username,
           token: response.token,
-          profile: response
+          profile: response.profile
         });
       });
+  }
+
+  editProfile(user){
+    AuthService
+      .editProfile(user)
+      .then((response) => {
+      this.setState({
+        username: response.username,
+        token: response.token,
+        profile: response.profile
+      });
+    });
   }
 
   fetchMenuList() {
@@ -178,7 +192,7 @@ class App extends Component {
                                                     cartItems={this.state.cartItems} 
                                                     updateCartItem={this.updateCartItem.bind(this)}
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
-            <Route path="/profile" component={ProfileView} />
+            <Route path="/profile" component={() => <ProfileView editProfile={this.editProfile.bind(this)} profile={this.state.profile} username={this.state.username} token={this.state.token}/>} />
             <Route path="/logout" component={HomeView}/>
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />
