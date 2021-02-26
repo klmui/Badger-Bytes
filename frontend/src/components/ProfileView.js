@@ -5,15 +5,15 @@ class ProfileView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password:"",
-      address:"",
-      city:"",
-      state:"",
-      zip:"",
-      car_desription:"",
-      type:"",
-      email:""
+      username: this.props.profile.username,
+      password: this.props.profile.password,
+      address:this.props.profile.address,
+      city:this.props.profile.city,
+      state:this.props.profile.state,
+      zip:this.props.profile.zip,
+      car_desription:this.props.profile.carDescription,
+      type:this.props.profile.type,
+      email:this.props.profile.email
     }
     this.submitForm = this.submitForm.bind(this);
   }
@@ -31,7 +31,7 @@ class ProfileView extends Component {
       "type": this.state.type,
       "email": this.state.email
     }
-    if(this.props.token && this.state.password.length){
+    if(this.props.token && this.state.password && this.state.username && this.state.password.length > 0 && this.state.username.length > 0){
       this.props.editProfile(user);
     }
   }
@@ -74,6 +74,13 @@ class ProfileView extends Component {
           </Form.Row>
 
           <Form.Row>
+            <Form.Group as={Col} controlId="formControlsPhone" style={{paddingLeft:"20px", paddingRight:"20px"}}>
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type={"text"} value={this.state.phone_number} onChange={e => this.setState({phone_number: e.target.value})}/>
+              </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
             <Form.Group as={Col} controlId="formGridCity" style={{paddingLeft:"20px"}}>
               <Form.Label>City</Form.Label>
               <Form.Control type={"text"} value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
@@ -86,7 +93,7 @@ class ProfileView extends Component {
 
             <Form.Group as={Col} controlId="formGridZip" style={{paddingRight:"20px"}}>
               <Form.Label>Zip</Form.Label>
-              <Form.Control type={"number"} value={this.zip} onChange={e => this.setState({zip: e.target.value})}/>
+              <Form.Control type={"number"} value={this.state.zip} onChange={e => this.setState({zip: e.target.value})}/>
             </Form.Group>
           </Form.Row>
         

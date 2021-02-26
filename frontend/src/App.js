@@ -53,7 +53,8 @@ class App extends Component {
         //console.log("RESPONSE", response);
         this.setState({
           username: response.username,
-          token: response.token
+          token: response.token,
+          profile: response.profile
         });
       });
   }
@@ -65,7 +66,7 @@ class App extends Component {
         this.setState({
           username: response.username,
           token: response.token,
-          profile: response
+          profile: response.profile
         });
       });
   }
@@ -77,6 +78,7 @@ class App extends Component {
       this.setState({
         username: response.username,
         token: response.token,
+        profile: response.profile
       });
     });
   }
@@ -190,7 +192,7 @@ class App extends Component {
                                                     cartItems={this.state.cartItems} 
                                                     updateCartItem={this.updateCartItem.bind(this)}
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
-            <Route path="/profile" component={() => <ProfileView editProfile={this.editProfile.bind(this)} username={this.state.username} token={this.state.token}/>} />
+            <Route path="/profile" component={() => <ProfileView editProfile={this.editProfile.bind(this)} profile={this.state.profile} username={this.state.username} token={this.state.token}/>} />
             <Route path="/logout" component={HomeView}/>
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />
