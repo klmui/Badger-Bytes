@@ -4,6 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { LinkContainer } from "react-router-bootstrap";
 
+const staffRoles = ["Admin", "Staff"];
+
 class Navigation extends Component {
   constructor(props) {
     super(props);
@@ -65,9 +67,8 @@ class Navigation extends Component {
   render() {
     let navbarContent;
     const { profile } = this.props;
-
     if (profile) {
-      if (profile.type === ("Admin" || "Staff")) {
+      if (staffRoles.includes(profile.type)) {
         navbarContent = this.state.navbar4StaffAdmin;
       } else {
         navbarContent = this.state.navbar4Customer;
