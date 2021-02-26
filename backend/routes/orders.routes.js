@@ -9,6 +9,7 @@ router.route('/orders/:username')
   .get(authMiddleware.requireLogin, ordersController.getOrdersAction);
 
 router.route('/orders')
-  .get(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.getRestOrdersAction);
+  .get(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.getRestOrdersAction)
+  .post(authMiddleware.requireLogin, ordersController.submitOrderAction);
 
 module.exports = router; // We need this at the end of every route file

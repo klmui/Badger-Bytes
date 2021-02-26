@@ -83,30 +83,69 @@ exports.getRestOrders = (req, res) => {
     });
 }
 
-// exports.submitOrder = (req, res) => {
-//   return new Promise((resolve, reject) => {
-//     // Connect to database
-//     pool.getConnection((err, connection) => {
-//       let query = `
-//         INSERT INTO user_order (order_date_time, pickup_date_time, payment_type, completed, username) 
-//         VALUES ?
-//       `;
-//       let values = [
-//         [req.body.orderDatTime, req.body.pickupDateTime, req.body.paymentType, req.body.completed. req.body.username]
-//       ];
-//       connection.query(query, [values], (error, rows, fields) => {
-//         if (error) {
-//           console.log("Error in query!");
-//           reject(err);
-//         } else {
-//           const orderId = rows.insertId;
-//           query = `
-//             INSERT INTO served (food_id, quantity_served, user_order_id)
-//             VALUES ?
-//           `;
-//           values = [];
-//         }
-//       });
-//     });
-//   });
-// }
+exports.submitOrder = (req, res) => {
+  return new Promise((resolve, reject) => {
+    // Connect to database
+    pool.getConnection((err, connection) => {
+      let query = `
+        INSERT INTO user_order (order_date_time, pickup_date_time, payment_type, username) 
+        VALUES ?
+      `;
+      let values = [
+        [req.body.orderDateTime, req.body.pickupDateTime, req.body.paymentType, req.body.username]
+      ];
+      connection.query(query, [values], (error, rows, fields) => {
+        if (error) {
+          console.log("Error in query 1!");
+          reject(err);
+        } else {
+          const orderId = rows.insertId;
+          const servedTableQuery = `
+            INSERT INTO served (food_id, quantity_served, user_order_id)
+            VALUES ?
+          `;
+          const foodTableQuery = `
+          UPDATE food
+          SET quantity = ?
+          WHERE id = ?
+        `;
+
+          let foodsTableValues = [];
+          let servedTableValues = [];
+
+          req.body.foods.forEach(food => {
+            let temp1= [];
+            temp1.push(food.foodId);
+            temp1.push(food.served);
+            temp1.push(orderId);
+            servedTableValues.push(temp1);
+
+            let foodsTableValues = [];
+            foodsTableValues.push(food.newQuantity);
+            foodsTableValues.push(food.foodId);
+            
+            connection.query(foodTableQuery, foodsTableValues, (error, rows, fields) => {
+              if (error) {
+                console.log("Error in query 3!");
+                //connection.release();
+                reject(err);
+              } else {
+                //connection.release();
+                resolve({ message: "Order successful!" });
+              }
+            });
+          });
+
+          connection.query(servedTableQuery, [servedTableValues], (error, rows, fields) => {
+            if (error) {
+              console.log("Error in query 2!");
+              reject(err);
+            } else {
+              resolve({ message: "Order successful!" });
+            }
+          });
+        }
+      });
+    });
+  });
+}
