@@ -18,3 +18,11 @@ exports.getRestOrdersAction = (req, res) => {
     console.log(err);
   });
 }
+
+exports.completeOrderAction = (req, res) => {
+  db.completeOrder(req, res).then(data => {
+    return res.json(data);
+  }).catch(error => {
+    res.json(error);
+  });
+}
