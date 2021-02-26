@@ -140,11 +140,7 @@ exports.submitOrder = (req, res) => {
               console.log("Error in query 2!");
               reject(err);
             } else {
-<<<<<<< HEAD
-              resolve({ message: "Order successful!" });
-=======
               resolve({ message: "Order successful!", orderId: orderId });
->>>>>>> main
             }
           });
         }
