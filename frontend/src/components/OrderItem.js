@@ -71,7 +71,7 @@ class OrderItem extends Component {
               </Col>
               <Col>
               <Button block variant="light" disabled>Car Description</Button>
-                <Button block variant="outline-primary" disabled>TODO: Currently there's no way to access car description from the API</Button>
+                <Button block variant="outline-primary" disabled>TODO: CAR DESCRIPTION</Button>
               </Col>
             </Row>
             {/* Show controls only to staffs */}
