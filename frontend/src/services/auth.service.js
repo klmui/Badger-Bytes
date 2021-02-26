@@ -48,6 +48,14 @@ function editProfile(user){
     }
   });
 }
+function logout(user) {
+  return request({
+    url: '/logout',
+    method: 'POST',
+    data: {}
+  });
+}
+
 const AuthService = {
   signup, login, editProfile
 }
