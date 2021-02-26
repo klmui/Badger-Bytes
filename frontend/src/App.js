@@ -25,6 +25,7 @@ class App extends Component {
       username: null,
       token: null,
       profile: null,
+      type: null,
     };
     this.signup = this.signup.bind(this);
     this.signOut = this.signOut.bind(this);
@@ -178,11 +179,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navigation
-            token={this.state.token}
-            signOut={this.signOut}
-            type={this.state.type}
-          />
+          <Navigation profile={this.state.profile} signOut={this.signOut} />
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route

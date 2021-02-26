@@ -44,7 +44,7 @@ class Navigation extends Component {
    *   each content to the corresponding href (route).
    */
   renderRoute(navbarContent) {
-    console.log(navbarContent);
+    // console.log(navbarContent);
     return navbarContent.map((content) =>
       content === "Logout" ? (
         <LinkContainer
@@ -64,9 +64,10 @@ class Navigation extends Component {
 
   render() {
     let navbarContent;
+    const { profile } = this.props;
 
-    if (this.props.token) {
-      if (this.props.type === ("admin" || "staff")) {
+    if (profile) {
+      if (profile.type === ("Admin" || "Staff")) {
         navbarContent = this.state.navbar4StaffAdmin;
       } else {
         navbarContent = this.state.navbar4Customer;
