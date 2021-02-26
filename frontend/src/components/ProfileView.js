@@ -33,6 +33,8 @@ class ProfileView extends Component {
     }
     if(this.props.token && this.state.password && this.state.username && this.state.password.length > 0 && this.state.username.length > 0){
       this.props.editProfile(user);
+    } else {
+      alert("Username or password field is empty.");
     }
   }
   
