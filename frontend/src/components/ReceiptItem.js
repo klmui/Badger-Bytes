@@ -33,18 +33,6 @@ class ReceiptItem extends Component {
       ).toLocaleDateString()
   }
 
-  showOrderCompleteButton() {
-    if (this.props.orderItem.completed) {
-      return (
-        <Button disabled block variant="secondary">Completed</Button>
-      )
-    } else {
-      return (
-        <Button block variant="danger">Complete Order</Button>
-      )
-    }
-  }
-
   render() {
     return (
       <Card className="col-md-8">
