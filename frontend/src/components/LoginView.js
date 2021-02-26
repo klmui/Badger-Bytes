@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
+import {Col, Form, Button, Container } from 'react-bootstrap';
 import './LoginView.css';
 
 class LoginView extends Component {
@@ -9,51 +9,37 @@ class LoginView extends Component {
       username:"",
       password:""
     }
-    this.handleLogin = this.handleLogin.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
-  handleLogin() {
-    fetch('http://localhost:8080/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        "username": this.state.username,
-        "password": this.state.password
-      })
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.token) {
-          this.props.history.push("/");
-        } else {
-          alert("Incorrect username or password! Please try again.");
-        }
-      });
+  submitForm() {
+    const user = {
+      "username": this.state.username,
+      "password": this.state.password,
+    }
+    this.props.login(user);
   }
-
   render() {
     return (
-      <React.Fragment>
-      <div className="container">
-        <h1> Badger Bytes</h1>
-        <p>Enter username</p>
-        <input
-          type="text"
-          onChange={event => this.setState({username: event.target.value})}
-          placeholder="username"
-        />
-        <br />
-        <br />
-        <p>Enter password</p>
-        <input
-          type="password"
-          onChange={event => this.setState({password: event.target.value})}
-          placeholder="password"
-        />
-        <div className="mt-2">
-          <Button variant="dark" size="md" onClick={this.handleLogin}> Login </Button>
-        </div>
-      </div>
-      </React.Fragment>
+      <Container>
+        <Form>
+          <Form.Row >
+            <Form.Group as={Col} controlId="formGridEmail" style={{paddingTop:"70px",paddingLeft:"30px"}}>
+              <Form.Label>Username</Form.Label>
+              <Form.Control type={"text"} placeholder="username" value={this.state.username} style={{width:"150px"}} onChange={e => this.setState({username: e.target.value})}/>
+            </Form.Group>
+          </Form.Row >
+          <Form.Row >
+            <Form.Group as={Col} controlId="formGridPassword" style={{paddingTop:"10px", paddingLeft:"30px", paddingRight:"20px" }}>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type={"password"} placeholder="password" value={this.state.password} style={{width:"150px"}} onChange={e => this.setState({password: e.target.value})}/>
+            </Form.Group>
+          </Form.Row>
+          <Button variant="dark" style={{marginLeft:"30px"}} onClick={this.submitForm}>
+            Login
+          </Button>
+        </Form>
+      </Container>
     );
   }
 }

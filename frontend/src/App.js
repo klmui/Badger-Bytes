@@ -19,6 +19,7 @@ import CheckoutView from './components/CheckoutView';
 import SignupView from './components/SignupView';
 import MenuService from './services/menu.service'
 import AuthService from './services/auth.service';
+import LoginService from './services/login.service'
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
       token: null
     }
     this.signup = this.signup.bind(this);
+    this.login = this.login.bind(this);
   }
 
   componentDidMount(){
@@ -42,10 +44,22 @@ class App extends Component {
 
     this.fetchMenuList();
   }
-  
+
   signup(user) {
     AuthService
       .signup(user)
+      .then((response) => {
+        console.log("RESPONSE", response);
+        this.setState({
+          username: response.username,
+          token: response.token
+        });
+      });
+  }
+
+  login(user) {
+    LoginService
+      .login(user)
       .then((response) => {
         console.log("RESPONSE", response);
         this.setState({
@@ -146,13 +160,13 @@ class App extends Component {
           <Navigation token={this.state} />
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route path="/login" component={LoginView} />
-            <Route path="/signup" component={() => <SignupView signup={this.signup} />} />    
-            <Route path="/menu" component={() => <MenuView 
+            <Route path="/login" component={() =><LoginView login={this.login}/>} />
+            <Route path="/signup" component={() => <SignupView signup={this.signup} />} />
+            <Route path="/menu" component={() => <MenuView
                                                     menuItems={this.state.menuItems}
                                                     addToCart={this.addToCart.bind(this)} />} />
-            <Route path="/cart" component={() => <CartView 
-                                                    cartItems={this.state.cartItems} 
+            <Route path="/cart" component={() => <CartView
+                                                    cartItems={this.state.cartItems}
                                                     updateCartItem={this.updateCartItem.bind(this)}
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
             <Route path="/profile" component={ProfileView} />
