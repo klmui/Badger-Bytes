@@ -63,10 +63,13 @@ class OrderItem extends Component {
                 <Button block variant="outline-primary" disabled>TODO: Currently there's no way to access car description from the API</Button>
               </Col>
             </Row>
-            <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
-                <Button block variant="success">Print Order</Button>
-                <Button block variant="danger">Complete Order</Button>
-            </Row>
+            {/* Show controls only to staffs */}
+            {(this.props.userIsStaff()) && ( 
+              <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
+                  <Button block variant="success">Print Order</Button>
+                  <Button block variant="danger">Complete Order</Button>
+              </Row>
+            )}
           </Card.Text>
         </Card.Body>
       </Card>

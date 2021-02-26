@@ -14,7 +14,10 @@ class OrderList extends Component {
     let orderItemList = [];
     for (const [idx, orderItem] of this.props.orderItems.entries()) {
       orderItemList.push(
-          <OrderItem key={idx} orderItem={orderItem} />
+          <OrderItem 
+            key={idx} 
+            orderItem={orderItem} 
+            userIsStaff={this.props.userIsStaff} />
       );
     }
 

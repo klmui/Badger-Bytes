@@ -23,11 +23,15 @@ class OrdersView extends Component {
       return;
     }
 
-    if (this.state.user.type === "Customer") {
-      this.fetchUserOrderList();
-    } else {
+    if (this.userIsStaff()){
       this.fetchAllOrderList();
+    } else {
+      this.fetchUserOrderList();
     }
+  }
+
+  userIsStaff() {
+    return this.state.user.type !== "Customer"
   }
 
   // apologies for the messy code...
@@ -93,10 +97,10 @@ class OrdersView extends Component {
   }
 
   showHeader() {
-    if (this.state.user.type === "Customer"){
-      return "Your Order History"
-    } else {
+    if (this.userIsStaff()){
       return "Manage Orders"
+    } else {
+      return "Your Order History"
     }
   }
 
@@ -104,7 +108,9 @@ class OrdersView extends Component {
     return (
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
-         <OrderList orderItems={this.state.orderItems} />
+         <OrderList
+          orderItems={this.state.orderItems} 
+          userIsStaff={this.userIsStaff.bind(this)} />
       </Container>
     );
   }
