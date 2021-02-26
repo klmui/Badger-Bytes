@@ -104,7 +104,7 @@ class SignupView extends Component {
               <Form.Label>Car Description</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.car_desription}
+                value={this.state.car_description}
                 onChange={(e) =>
                   this.setState({ car_description: e.target.value })
                 }

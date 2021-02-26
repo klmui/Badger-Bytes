@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
 
 import HomeView from "./components/HomeView";
 import LoginView from "./components/LoginView";
@@ -65,7 +65,8 @@ class App extends Component {
   }
 
   editProfile(user) {
-    AuthService.editProfile(user).then((response) => {
+    AuthService.editProfile(user, this.state.token).then((response) => {
+      console.log(response);
       this.setState({
         username: response.username,
         token: response.token,

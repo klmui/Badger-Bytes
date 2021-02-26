@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Col, Form, Button, Container } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 
 class ProfileView extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class ProfileView extends Component {
       city: this.props.profile.city,
       state: this.props.profile.state,
       zip: this.props.profile.zip,
-      car_desription: this.props.profile.carDescription,
+      car_description: this.props.profile.carDescription,
       type: this.props.profile.type,
       email: this.props.profile.email,
     };
@@ -38,6 +39,7 @@ class ProfileView extends Component {
       this.state.password.length > 0 &&
       this.state.username.length > 0
     ) {
+      this.props.history.push("/");
       this.props.editProfile(user);
     } else {
       alert("Username or password field is empty.");
@@ -60,6 +62,7 @@ class ProfileView extends Component {
                 type={"text"}
                 placeholder={this.props.username}
                 value={this.state.username}
+                disabled={true}
                 onChange={(e) => this.setState({ username: e.target.value })}
               />
             </Form.Group>
@@ -107,7 +110,7 @@ class ProfileView extends Component {
               <Form.Label>Car Description</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.car_desription}
+                value={this.state.car_description}
                 onChange={(e) =>
                   this.setState({ car_description: e.target.value })
                 }
@@ -196,14 +199,14 @@ class ProfileView extends Component {
                 value={this.state.type}
                 onChange={(e) => this.setState({ type: e.target.value })}
               >
-                <option>Choose</option>
-                <option>Customer</option>
-                <option>Staff</option>
-                <option>Admin</option>
+                <option value="Customer">Customer</option>
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
-
+          
+      
           <Button
             variant="primary"
             style={{ marginLeft: "20px" }}
@@ -217,4 +220,5 @@ class ProfileView extends Component {
   }
 }
 
-export default ProfileView;
+
+export default withRouter(ProfileView);

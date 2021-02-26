@@ -30,10 +30,10 @@ function login(user) {
   });
 }
 
-function editProfile(user){
+function editProfile(user, token){
   return request({
     url: '/' + user.username,
-    method: 'POST',
+    method: 'PUT',
     data: {
       "username": user.username,
       "password": user.password,
@@ -45,6 +45,9 @@ function editProfile(user){
       "car_description": user.car_description,
       "type": user.type,
       "email": user.email
+    },
+    headers: {
+      "Authorization": `Bearer ${token}`
     }
   });
 }
