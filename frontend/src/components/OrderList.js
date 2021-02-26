@@ -17,7 +17,9 @@ class OrderList extends Component {
           <OrderItem 
             key={idx} 
             orderItem={orderItem} 
-            userIsStaff={this.props.userIsStaff} />
+            userIsStaff={this.props.userIsStaff}
+            profile={this.props.profile}  
+          />
       );
     }
 

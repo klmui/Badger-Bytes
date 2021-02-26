@@ -9,17 +9,12 @@ class OrdersView extends Component {
     super(props);
     this.state ={
       orderItems: [],
-      //TODO: dummy user for testing
-      user: {
-        "username": "buckyupdate",
-        "type": "Staff" // change this to check whether it works for both customers and admins
-      }
     }
   }
   
   componentDidMount() {
     //TODO: change this.state.user to actual user info
-    if (this.state.user.type === undefined) {
+    if (this.props.profile.type === undefined) {
       return;
     }
 
@@ -31,7 +26,7 @@ class OrdersView extends Component {
   }
 
   userIsStaff() {
-    return this.state.user.type !== "Customer"
+    return this.props.profile.type !== "Customer"
   }
 
   // apologies for the messy code...
@@ -87,7 +82,7 @@ class OrdersView extends Component {
 
   fetchUserOrderList() {
     OrderService
-      .getUserOrders(this.state.user.username) //TODO: pass user info from <App> and change to this.props.~~
+      .getUserOrders(this.props.username) //TODO: pass user info from <App> and change to this.props.~~
       .then((response) => {
         let organizedJson = this.organizeOrderJson(response)
         this.setState({
@@ -109,6 +104,7 @@ class OrdersView extends Component {
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
          <OrderList
+          profile={this.props.profile}
           orderItems={this.state.orderItems} 
           userIsStaff={this.userIsStaff.bind(this)} />
       </Container>

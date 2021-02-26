@@ -197,6 +197,8 @@ class App extends Component {
               path="/cart"
               component={() => (
                 <CartView
+                  username={this.state.username}
+                  profile={this.state.profile}
                   cartItems={this.state.cartItems}
                   updateCartItem={this.updateCartItem.bind(this)}
                   removeFromCart={this.removeFromCart.bind(this)}
@@ -215,7 +217,15 @@ class App extends Component {
               )}
             />
             <Route path="/logout" component={HomeView} />
-            <Route path="/orders" component={OrdersView} />
+            <Route 
+              path="/orders" 
+              component={() => (
+                <OrdersView
+                  profile={this.state.profile}
+                  username={this.state.username} 
+                />
+              )} 
+            />
             <Route path="/checkout" component={CheckoutView} />
           </Switch>
         </div>
