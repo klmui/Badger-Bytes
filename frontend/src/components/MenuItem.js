@@ -30,6 +30,13 @@ class MenuItem extends Component {
       return;
     }
 
+    if (this.props.addMode) {
+      this.setState({
+        ...this.props.menu,
+        editMode: true
+      })
+    }
+
     this.setState({
       name: this.props.menu.food_name,
       description: this.props.menu.food_description,
@@ -83,6 +90,18 @@ class MenuItem extends Component {
     this.props.addToCart(this.props.menu);
   }
 
+  addFood() {
+    let menuObj = Object.assign({}, this.state)
+    delete menuObj['editMode']
+
+    MenuService
+      .addFood(menuObj)
+      .then((response) => {
+        alert(response.foodId);
+        this.props.history.push("/menu")
+      })
+  }
+
   deleteFood() {
     MenuService
       .deleteFood(this.props.menu.food_id)
@@ -130,6 +149,7 @@ class MenuItem extends Component {
         id="inputTitle"
         type="text"
         onChange={ e => this.setName(e.target.value)}
+        placeholder="Name"
       />
     )
   }
@@ -159,6 +179,7 @@ class MenuItem extends Component {
           type="textbox"
           value={this.state.description}
           onChange={ e => this.setDescription(e.target.value)}
+          placeholder="Enter description"
         />
       </>
     )
@@ -228,11 +249,30 @@ class MenuItem extends Component {
   }
 
   showCancelEditButton() {
-    if (this.state.editMode){
+    if (this.state.editMode && !this.props.addMode){
       return (
         <Row className="mt-2">
           <Button onClick={this.toggleEditMode.bind(this)} block variant="outline-secondary">Cancel Editing</Button>
         </Row>
+      )
+    }
+  }
+
+  showBottomControls() {
+    if (this.props.addMode) {
+      return <Button onClick={this.addFood.bind(this)} block variant="primary">Add</Button>
+    }
+
+    if (this.state.editMode) {
+      return (
+        <>
+          <Col>
+            <Button onClick={this.updateFood.bind(this)} block variant="primary">Update</Button>
+          </Col>
+          <Col>
+            <Button onClick={this.deleteFood.bind(this)} block variant="danger">Delete</Button>
+          </Col>
+        </>
       )
     }
   }
@@ -281,12 +321,7 @@ class MenuItem extends Component {
           </Card.Text>
           {this.state.editMode && (
             <Row>
-              <Col>
-                <Button onClick={this.updateFood.bind(this)} block variant="primary">Update</Button>
-              </Col>
-              <Col>
-                <Button onClick={this.deleteFood.bind(this)} block variant="danger">Delete</Button>
-              </Col>
+              {this.showBottomControls()}
             </Row>
           )}
             {this.showCancelEditButton()}
