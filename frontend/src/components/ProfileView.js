@@ -39,7 +39,7 @@ class ProfileView extends Component {
   render() {
     return (
       <Container>
-          <h1>Edit your Account</h1>
+          <h1>Edit Your Account</h1>
         <Form>
           <Form.Row >
             <Form.Group as={Col} controlId="formGridEmail" style={{paddingTop:"10px",paddingLeft:"20px"}}>

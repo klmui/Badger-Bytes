@@ -85,7 +85,7 @@ class App extends Component {
         <div>
           <Navigation token={this.state} />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={HomeView} />
             <Route path="/login" component={() => <LoginView login={this.login.bind(this)} />} />
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />            
             <Route path="/menu" component={MenuView} />
