@@ -5,15 +5,15 @@ class SignupView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password:null,
-      address:null,
-      city:null,
-      state:null,
-      zip:null,
-      car_desription:null,
-      type:null,
-      email:null
+      username: "",
+      password:"",
+      address:"",
+      city:"",
+      state:"",
+      zip:"",
+      car_desription:"",
+      type:"",
+      email:""
     }
     this.submitForm = this.submitForm.bind(this);
   }
@@ -91,7 +91,7 @@ class SignupView extends Component {
         <Form.Row>
           <Form.Group as={Col} controlId="formGridType"style={{paddingLeft:"20px", paddingRight:"20px"}} >
                 <Form.Label>Type</Form.Label>
-                <Form.Control as="select" defaultValue="Choose..." value={this.state.type} onChange={e => this.setState({type: e.target.value})}>
+                <Form.Control as="select" value={this.state.type} onChange={e => this.setState({type: e.target.value})}>
                   <option>Choose</option>
                   <option>Customer</option>
                   <option>Staff</option>
@@ -100,7 +100,7 @@ class SignupView extends Component {
             </Form.Group>
         </Form.Row>
           
-          <Button variant="primary" type="submit" style={{marginLeft:"20px"}} onClick={this.submitForm}>
+          <Button variant="primary" style={{marginLeft:"20px"}} onClick={this.submitForm}>
             Submit
           </Button>
         </Form>

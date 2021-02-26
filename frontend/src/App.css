@@ -37,6 +37,8 @@
   }
 }
 
+/* Menu */
+
 .menu-item {
   margin-top: 1em;
   margin-left: 1em;
@@ -49,4 +51,23 @@
 
 .view-header {
   margin-top: 0.4em;
+}
+
+/* Cart */
+@media screen and (max-width: 540px) {
+  .quantityCol {
+    width: 29.04%
+  }
+}
+
+@media screen and (min-width: 540px) and (max-width: 780px) {
+  .quantityCol {
+    width: 20%
+  }
+}
+
+@media screen and (min-width: 780px) {
+  .quantityCol {
+    width: 14%
+  }
 }

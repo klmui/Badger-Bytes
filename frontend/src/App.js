@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -7,31 +7,47 @@ import {
   Route
 } from "react-router-dom";
 
+import HomeView from './components/LoginView';
 import LoginView from './components/LoginView';
 import MenuView from './components/MenuView';
 import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
 import Navigation from './components/Navigation';
-import SignupView from './components/SignupView';
 
+import CheckoutView from './components/CheckoutView';
+import SignupView from './components/SignupView';
+import MenuService from './services/menu.service'
 import AuthService from './services/auth.service';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cartItems: [],
+      menuItems: [],
       username: null,
       token: null
-    };
+    }
     this.signup = this.signup.bind(this);
-  };
+  }
 
+  componentDidMount(){
+    // restore cart from LocalStorage
+    let localCart = localStorage.getItem('cart');
+    localCart = JSON.parse(localCart);
+    if (localCart) {
+      this.setCartItems(localCart);
+    }
+
+    this.fetchMenuList();
+  }
+  
   signup(user) {
     AuthService
       .signup(user)
       .then((response) => {
-        console.log("response", response);
+        console.log("RESPONSE", response);
         this.setState({
           username: response.username,
           token: response.token
@@ -54,7 +70,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Navigation token={this.state.token}/>
+          <Navigation token={this.state} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={() => <LoginView login={this.login.bind(this)} />} />
@@ -63,20 +79,12 @@ class App extends React.Component {
             <Route path="/cart" component={CartView} />
             <Route path="/profile" component={ProfileView} />
             <Route path="/orders" component={OrdersView} />
+            <Route path="/checkout" component={CheckoutView} />
           </Switch>
         </div>
       </Router>
     )
   }
-}
-
-
-const Home = (props) => {
-  return (
-    <div className="App">
-      <h1>Home</h1>
-    </div>
-  );
 }
 
 export default App;

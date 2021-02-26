@@ -7,9 +7,6 @@ import MenuList from './MenuList';
 class MenuView extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      menuItems: []
-    }
   }
 
   componentDidMount() {
@@ -31,7 +28,7 @@ class MenuView extends Component {
       <>
       <Container>
         <h1 className="view-header">Menu</h1>
-        <MenuList menuItems={this.state.menuItems} />
+        <MenuList menuItems={this.props.menuItems} addToCart={this.props.addToCart} />
       </Container>
       </>
     );
