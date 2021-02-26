@@ -30,8 +30,8 @@ function getDetail(id) {
 
 }
 
-const MenuService = {
+const OrderService = {
     getAllOrders, getUserOrders, placeOrder, getDetail
 }
 
-export default MenuService;
+export default OrderService;
