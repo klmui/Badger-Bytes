@@ -11,43 +11,83 @@ class Navigation extends Component {
   }
   
   render() {
-    return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand >
-              {/* <img
-                alt=""
-                src="/logo.svg"
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-              />{' '} */}
-              Scavenge
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <LinkContainer to="/menu">
-                <Nav.Link>Menu</Nav.Link>
-              </LinkContainer>
-            </Nav>
-            <Nav>
-              <LinkContainer to="/cart">
-                <Nav.Link>Cart</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/orders">
-                <Nav.Link>My Orders</Nav.Link>
-              </LinkContainer>          
-              <LinkContainer to="/profile">
-                <Nav.Link>Profile</Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    );
+    if(this.props.token){
+      return (
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Container>
+            <LinkContainer to="/">
+              <Navbar.Brand >
+                {/* <img
+                  alt=""
+                  src="/logo.svg"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '} */}
+                Badger Bytes
+              </Navbar.Brand>
+            </LinkContainer>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <LinkContainer to="/menu">
+                  <Nav.Link>Menu</Nav.Link>
+                </LinkContainer>
+              </Nav>
+              <Nav>
+                <LinkContainer to="/cart">
+                  <Nav.Link>Cart</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/orders">
+                  <Nav.Link>My Orders</Nav.Link>
+                </LinkContainer>          
+                <LinkContainer to="/profile">
+                  <Nav.Link>Profile</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/logout" onClick={this.props.signOut}>
+                  <Nav.Link>Logout</Nav.Link>
+                </LinkContainer>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      );
+    } else{
+      return (
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Container>
+            <LinkContainer to="/">
+              <Navbar.Brand >
+                {/* <img
+                  alt=""
+                  src="/logo.svg"
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{' '} */}
+                Badger Bytes
+              </Navbar.Brand>
+            </LinkContainer>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <LinkContainer to="/menu">
+                  <Nav.Link>Menu</Nav.Link>
+                </LinkContainer>
+              </Nav>
+              <Nav>
+                <LinkContainer to="/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/signup">
+                  <Nav.Link>Sign up</Nav.Link>
+                </LinkContainer>          
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      );
+    }  
   }
 }
 
