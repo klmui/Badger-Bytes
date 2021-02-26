@@ -17,6 +17,25 @@ class MenuAddView extends Component {
       }
   }
 
+  componentDidMount() {
+    // validate user role
+
+    // check for invalid access
+    if (!this.props.location.state) {
+      this.props.history.push('/menu');
+      return; 
+    }
+
+    // check for role
+    if (this.props.location.state.profile){
+      if (this.props.location.state.profile.type === "Customer") {
+        this.props.history.push('/menu');
+      }
+    } else {
+      this.props.history.push('/menu');
+    }
+  }
+
   render() {
     return (
       <Container>

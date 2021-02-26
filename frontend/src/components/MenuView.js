@@ -39,6 +39,7 @@ class MenuView extends Component {
           <Link to={{
             pathname: '/menu/add',
             state: { 
+              profile: this.props.profile
             }
           }}>
             <Button className="float-right" size="md">Add Food</Button>
