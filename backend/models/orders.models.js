@@ -110,6 +110,10 @@ exports.submitOrder = (req, res) => {
           WHERE id = ?
         `;
 
+<<<<<<< HEAD
+=======
+          let foodsTableValues = [];
+>>>>>>> lq-orderhistory
           let servedTableValues = [];
 
           req.body.foods.forEach(food => {
@@ -140,7 +144,11 @@ exports.submitOrder = (req, res) => {
               console.log("Error in query 2!");
               reject(err);
             } else {
+<<<<<<< HEAD
               resolve({ message: "Order successful!", orderId: orderId });
+=======
+              resolve({ message: "Order successful!" });
+>>>>>>> lq-orderhistory
             }
           });
         }

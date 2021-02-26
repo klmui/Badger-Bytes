@@ -6,12 +6,16 @@ import Row from 'react-bootstrap/Row'
 import Cart from './Cart';
 import PickupInfo from './PickupInfo';
 import PaymentInfo from './PaymentInfo';
+import OrderService from '../services/order.service'
 
 class CheckoutView extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
+      user: {
+        username: "ilkyu" // TODO: dummy user object-- change to real user obj
+      }, 
       cartItems: [],
       time: 36000, // 10am
       carDescription: '',
@@ -51,9 +55,27 @@ class CheckoutView extends Component {
   }
 
   submitOrder(){
-    // TODO: actually post to /order
+    let foods = [... this.state.cartItems];
+
+    foods.forEach((food) => {
+      food.foodId = food.food_id; // @Frontend: please keep the naming coherent (food_id vs foodId)
+      food.newQuantity = food.quantity - food.cartQuantity;
+      food.served = food.cartQuantity
+    })
+
+    let orderForm = {
+      username: this.state.user.username, //TODO: change to props
+      paymentType: this.state.paymentMethod,
+      orderDateTime: new Date().toISOString(),
+      pickupDateTime: this.convertTimeToISO(),
+      foods: foods,
+    }
     
-    alert("TODO: pickuptime: " + this.convertTimeToISO() + ' car: ' + this.state.carDescription + ' payment: ' + this.state.paymentMethod)
+    OrderService
+      .placeOrder(orderForm)
+      .then((response) => {
+        alert(response.message)
+      })
   }
 
   goBack() {

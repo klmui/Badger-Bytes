@@ -13,6 +13,7 @@ import MenuView from './components/MenuView';
 import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
+import ReceiptView from './components/ReceiptView'
 import Navigation from './components/Navigation';
 
 import CheckoutView from './components/CheckoutView';
@@ -110,7 +111,7 @@ class App extends Component {
 
   convertToCartItem(itemObj) {
     // removes unnecessary keys from an item object from the API
-    let unnecessary_fields = ["menu_id", "restaurant_name", "restaurant_description", "restaurant_image", "quantity"]
+    let unnecessary_fields = ["menu_id", "restaurant_name", "restaurant_description", "restaurant_image"]
     let itemCopy = Object.assign({}, itemObj);
     unnecessary_fields.forEach( (key) => {
       delete itemCopy[key];
@@ -196,6 +197,7 @@ class App extends Component {
             <Route path="/logout" component={HomeView}/>
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />
+            <Route path="/receipt" component={ReceiptView}/>
           </Switch>
         </div>
       </Router>

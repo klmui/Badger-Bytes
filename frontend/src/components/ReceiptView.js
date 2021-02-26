@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 
 import OrderService from '../services/order.service'
-import OrderList from './OrderList'
+import ReceiptList from './ReceiptList'
 
-class OrdersView extends Component {
+class ReceiptView extends Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -97,23 +97,19 @@ class OrdersView extends Component {
   }
 
   showHeader() {
-    if (this.userIsStaff()){
-      return "Manage Orders"
-    } else {
-      return "Your Order History"
-    }
+    return "Your Receipt"
   }
 
   render() {
     return (
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
-         <OrderList
+         <ReceiptList
           orderItems={this.state.orderItems} 
-          userIsStaff={this.userIsStaff.bind(this)} />
+          userIsStaff={this.userIsStaff.bind(this)}/>
       </Container>
     );
   }
 }
 
-export default OrdersView;
+export default ReceiptView;

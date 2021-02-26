@@ -22,7 +22,8 @@ class Cart extends Component {
                   item={item} 
                   removeFromCart={this.props.removeFromCart} 
                   updateCartItem={this.props.updateCartItem} 
-                  checkoutMode={this.props.checkoutMode}/>
+                  checkoutMode={this.props.checkoutMode}
+                  />
       );
     }
 
