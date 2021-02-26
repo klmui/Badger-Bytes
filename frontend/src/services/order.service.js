@@ -16,13 +16,22 @@ function getUserOrders(username) {
     })
 }
 
+function placeOrder(orderForm) {
+    return request({
+        url: '/orders/',
+        method: 'POST',
+        withCredentials: true,
+        data: orderForm,
+    })
+}
+
 // TODO
 function getDetail(id) {
 
 }
 
 const MenuService = {
-    getAllOrders, getUserOrders, getDetail
+    getAllOrders, getUserOrders, placeOrder, getDetail
 }
 
 export default MenuService;
