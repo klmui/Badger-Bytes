@@ -36,3 +36,53 @@ exports.getMenu = (req, res) => {
       });
     });
 }
+
+exports.updateMenu = (req, res) => {
+  return new Promise((resolve, reject) => {
+    
+    // Connect to database
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.log("Error connecting to database!");
+        return reject(err);
+      } else {
+
+        const newInfo = {
+          "description": req.body.description,
+          "img_src": req.body.img_src,
+          "name": req.body.name
+        };
+
+        const query = `
+          UPDATE menu m
+          SET 
+            description = ?,
+            img_src = ?,
+            name = ?
+          WHERE m.id <> 0;
+          
+        `;
+
+        const values = [
+          newInfo.description, newInfo.img_src, newInfo.name
+        ];
+
+        connection.query(query, values, async (error, results) => {
+          // Always release the connection back
+          connection.release();
+
+          if (error) {
+            console.log("Error updating restaurant info");
+            return reject({
+              message: "Error updating restaurant info"
+            });
+          } else {
+            return resolve({
+              message: "Successfully updated restaurant info!"
+            });
+          }
+        });
+      }
+    });
+  });
+}
