@@ -17,6 +17,7 @@ function addFood(food_obj) {
         url: '/food/',
         method: 'POST',
         withCredentials: true,
+        data: food_obj,
     })
 }
 
