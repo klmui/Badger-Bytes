@@ -91,7 +91,7 @@ class App extends Component {
 
   convertToCartItem(itemObj) {
     // removes unnecessary keys from an item object from the API
-    let unnecessary_fields = ["menu_id", "restaurant_name", "restaurant_description", "restaurant_image", "quantity"]
+    let unnecessary_fields = ["menu_id", "restaurant_name", "restaurant_description", "restaurant_image"]
     let itemCopy = Object.assign({}, itemObj);
     unnecessary_fields.forEach( (key) => {
       delete itemCopy[key];
