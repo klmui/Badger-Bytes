@@ -33,6 +33,17 @@ class OrderItem extends Component {
       ).toLocaleDateString()
   }
 
+  showOrderCompleteButton() {
+    if (this.props.orderItem.completed) {
+      return (
+        <Button disabled block variant="secondary">Completed</Button>
+      )
+    } else {
+      return (
+        <Button block variant="danger">Complete Order</Button>
+      )
+    }
+  }
 
   render() {
     return (
@@ -67,7 +78,7 @@ class OrderItem extends Component {
             {(this.props.userIsStaff()) && ( 
               <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
                   <Button block variant="success">Print Order</Button>
-                  <Button block variant="danger">Complete Order</Button>
+                  {this.showOrderCompleteButton()}
               </Row>
             )}
           </Card.Text>

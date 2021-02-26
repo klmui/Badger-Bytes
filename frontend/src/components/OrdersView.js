@@ -12,7 +12,7 @@ class OrdersView extends Component {
       //TODO: dummy user for testing
       user: {
         "username": "buckyupdate",
-        "type": "Customer" // change this to check whether it works for both customers and admins
+        "type": "Staff" // change this to check whether it works for both customers and admins
       }
     }
   }
