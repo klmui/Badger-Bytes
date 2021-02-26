@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 
-import HomeView from './components/LoginView';
+import HomeView from './components/HomeView';
 import LoginView from './components/LoginView';
 import MenuView from './components/MenuView';
 import CartView from './components/CartView';
@@ -27,9 +27,11 @@ class App extends Component {
       cartItems: [],
       menuItems: [],
       username: null,
-      token: null
-    }
+      token: null,
+      profile:null,
+    };
     this.signup = this.signup.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   componentDidMount(){
@@ -47,10 +49,22 @@ class App extends Component {
     AuthService
       .signup(user)
       .then((response) => {
-        console.log("RESPONSE", response);
+        //console.log("RESPONSE", response);
         this.setState({
           username: response.username,
           token: response.token
+        });
+      });
+  }
+
+  login(user) {
+    AuthService
+      .login(user)
+      .then((response) => {
+        this.setState({
+          username: response.username,
+          token: response.token,
+          profile: response
         });
       });
   }
@@ -63,6 +77,10 @@ class App extends Component {
           menuItems: response
         })
       })
+  }
+
+  signOut(){
+    this.setState({token:null, token: null, username: null, profile: null, cartItems: []});
   }
 
   setCartItems = (newCartItems) => {
@@ -143,10 +161,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navigation token={this.state} />
+          <Navigation token={this.state.token}  signOut={this.signOut} />
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route path="/login" component={LoginView} />
+            <Route path="/login" component={() => <LoginView login={this.login.bind(this)} />} />
             <Route path="/signup" component={() => <SignupView signup={this.signup} />} />    
             <Route path="/menu" component={() => <MenuView 
                                                     menuItems={this.state.menuItems}
@@ -156,6 +174,7 @@ class App extends Component {
                                                     updateCartItem={this.updateCartItem.bind(this)}
                                                     removeFromCart={this.removeFromCart.bind(this)} />} />
             <Route path="/profile" component={ProfileView} />
+            <Route path="/logout" component={HomeView}/>
             <Route path="/orders" component={OrdersView} />
             <Route path="/checkout" component={CheckoutView} />
           </Switch>

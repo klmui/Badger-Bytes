@@ -19,8 +19,19 @@ function signup(user) {
   });
 }
 
+function login(user) {
+  return request({
+    url: '/login',
+    method: 'POST',
+    data: {
+      "username": user.username,
+      "password": user.password,
+    }
+  });
+}
+
 const AuthService = {
-  signup
+  signup, login
 }
 
 export default AuthService;

@@ -156,3 +156,89 @@ exports.signup = (req, res) => {
     });
   });
 }
+
+exports.updateUser = (req, res) => {
+  return new Promise((resolve, reject) => {
+    
+    // Connect to database
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.log("Error connecting to database!");
+        return reject(err);
+      } else {
+
+        const newInfo = {
+          "username": req.body.username,
+          "password": req.body.password,
+          "email": req.body.email,
+          "phone_number": req.body.phoneNumber,
+          "address": req.body.address,
+          "city": req.body.city,
+          "state": req.body.state,
+          "zip": req.body.zip,
+          "car_description": req.body.carDescription,
+          "type": req.body.type
+        };
+
+        const query = `
+        UPDATE user u
+        SET 
+          username = ?,
+          password = ?,
+          email = ?,
+          phone_number = ?,
+          address = ?,
+          city = ?,
+          state = ?,
+          zip = ?,
+          car_description = ?,
+          type = ?
+        WHERE u.username = ?;
+        `;
+        // hash password - takes awhile so we need aysnc await
+        const hashedPassword = await bcrypt.hash(newInfo.password, 8);
+        const values = [
+          newInfo.username, hashedPassword, newInfo.email, newInfo.phone_number, newInfo.address, newInfo.city, newInfo.state, newInfo.zip, newInfo.car_description, newInfo.type, req.params.username
+        ];
+
+        connection.query(query, values, async (error, results) => {
+          // Always release the connection back
+          connection.release();
+
+          if (error) {
+            console.log("Duplicate username.");
+            return reject({
+              message: "Duplicate username."
+            });
+          } else {
+
+            // create token and insert cookie
+            const token = jwt.sign({
+              username: newInfo.username
+            }, process.env.JWT_SECRET, {
+              expiresIn: process.env.JWT_EXPIRES_IN
+            });
+
+            const cookieOptions = {
+              expires: new Date(
+                Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+              ),
+              httpOnly: true
+            }
+
+            // can specify any name for cookie
+            // need to decode the token to get username
+            res.cookie('jwt', token, cookieOptions);
+
+            console.log(token);
+
+            return resolve({
+              username: newInfo.username,
+              token: token
+            });
+          }
+        });
+      }
+    });
+  });
+}
