@@ -23,7 +23,9 @@ class Navigation extends Component {
    */
   getRoute(content) {
     switch (content) {
-      case "All Orders" || "My Orders":
+      case "All Orders": // Staff View
+        return "/orders";
+      case "My Orders": // Customer View
         return "/orders";
       case "Profile":
         return "/profile";
