@@ -13,10 +13,8 @@ router.route('/logout')
 router.route('/signup')
   .post(authController.signupAction);
 
-router.route('/update/:username')
-  .put(authMiddleware.requireLogin, authController.updateUserAction);
-
-router.route('/user/:username')
+router.route('/:username')
+  .put(authMiddleware.requireLogin, authController.updateUserAction)
   .delete(authMiddleware.requireLogin, authController.deleteUserAction);
 
 module.exports = router; // We need this at the end of every route file
