@@ -63,7 +63,7 @@ class App extends Component {
       });
     });
   }
-
+  
   editProfile(user) {
     AuthService.editProfile(user).then((response) => {
       this.setState({
@@ -197,6 +197,7 @@ class App extends Component {
                 <MenuView
                   menuItems={this.state.menuItems}
                   addToCart={this.addToCart.bind(this)}
+                  profile={this.state.profile}
                 />
               )}
             />

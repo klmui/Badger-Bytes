@@ -29,6 +29,7 @@ class MenuView extends Component {
           <MenuList
             menuItems={this.props.menuItems}
             addToCart={this.props.addToCart}
+            profile={this.props.profile}
           />
         </Container>
       </>
