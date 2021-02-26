@@ -8,12 +8,26 @@ class OrdersView extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      orderItems: []
+      orderItems: [],
+      //TODO: dummy user for testing
+      user: {
+        "username": "buckyupdate",
+        "type": "Customer" // change this to check whether it works for both customers and admins
+      }
     }
   }
   
   componentDidMount() {
-    this.fetchAllOrderList();
+    //TODO: change this.state.user to actual user info
+    if (this.state.user.type === undefined) {
+      return;
+    }
+
+    if (this.state.user.type === "Customer") {
+      this.fetchUserOrderList();
+    } else {
+      this.fetchAllOrderList();
+    }
   }
 
   // apologies for the messy code...
@@ -67,10 +81,29 @@ class OrdersView extends Component {
       })
   }
 
+  fetchUserOrderList() {
+    OrderService
+      .getUserOrders(this.state.user.username) //TODO: pass user info from <App> and change to this.props.~~
+      .then((response) => {
+        let organizedJson = this.organizeOrderJson(response)
+        this.setState({
+          orderItems: organizedJson
+        })
+      })
+  }
+
+  showHeader() {
+    if (this.state.user.type === "Customer"){
+      return "Your Order History"
+    } else {
+      return "Manage Orders"
+    }
+  }
+
   render() {
     return (
       <Container>
-        <h1 className="view-header">Orders</h1>
+        <h1 className="view-header">{this.showHeader()}</h1>
          <OrderList orderItems={this.state.orderItems} />
       </Container>
     );
