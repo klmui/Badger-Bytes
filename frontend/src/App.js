@@ -80,7 +80,12 @@ class App extends Component {
   }
 
   signOut(){
-    this.setState({token:null, token: null, username: null, profile: null, cartItems: []});
+    AuthService
+      .logout()
+      .then((response) => {
+        console.log(response);
+        this.setState({token:null, token: null, username: null, profile: null, cartItems: []});
+      });
   }
 
   setCartItems = (newCartItems) => {
