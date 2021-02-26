@@ -34,7 +34,7 @@ class App extends Component {
 
   componentDidMount() {
     // restore cart from LocalStorage
-    let localCart = localStorage.getItem("cart");
+    let localCart = localStorage.getItem("cart-" + this.state.username);
     localCart = JSON.parse(localCart);
     if (localCart) {
       this.setCartItems(localCart);
@@ -129,8 +129,15 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
+
+  clearCart = () => {
+    localStorage.setItem("cart-" + this.state.username, "[]");
+    this.setState({
+      cartItems: []
+    });
+  }
 
   removeFromCart = (item) => {
     let cartCopy = [...this.state.cartItems];
@@ -141,7 +148,7 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
 
   updateCartItem = (item, quantity) => {
@@ -166,7 +173,7 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
 
   render() {
@@ -226,7 +233,15 @@ class App extends Component {
                 />
               )} 
             />
-            <Route path="/checkout" component={CheckoutView} />
+            <Route 
+              path="/checkout" 
+              render={(props) => (
+                <CheckoutView
+                  {...props} 
+                  clearCart={this.clearCart}
+                /> 
+              )} 
+            />
           </Switch>
         </div>
       </Router>

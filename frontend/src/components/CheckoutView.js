@@ -76,6 +76,9 @@ class CheckoutView extends Component {
       .placeOrder(orderForm)
       .then((response) => {
         alert(response.message)
+        // clear cart and take user to order history page
+        this.props.clearCart();
+        this.props.history.push("/orders")
       })
   }
 
