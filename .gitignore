@@ -1,1 +1,5 @@
+# npm dependencies
 node_modules/
+
+# virtual env
+venv/
