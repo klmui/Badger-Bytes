@@ -11,6 +11,7 @@ import FormControl from "react-bootstrap/FormControl";
 import { AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
 
 import "../App.css";
+import MenuService from "../services/menu.service";
 
 const staffRoles = ["Admin", "Staff"];
 
@@ -20,13 +21,57 @@ class MenuItem extends Component {
     this.showPrice = this.showPrice.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.state = {
-      editMode: false
+      editMode: false,
     }
+  }
+
+  componentDidMount() {
+    if (this.props.type === "filler" ) {
+      return;
+    }
+
+    this.setState({
+      name: this.props.menu.food_name,
+      description: this.props.menu.food_description,
+      quantity: this.props.menu.quantity,
+      image_src: this.props.menu.food_image,
+      price: this.props.menu.price
+    })
+  }
+
+  setName(name) {
+    this.setState({
+      name: name
+    })
+  }
+
+  setDescription(description) {
+    this.setState({
+      description: description
+    })
+  }
+
+  setQuantity(quantity) {
+    this.setState({
+      quantity: quantity
+    })
+  }
+
+  setImageSrc(image_src) {
+    this.setState({
+      image_src: image_src
+    })
+  }
+
+  setPrice(price) {
+    this.setState({
+      price: price
+    })
   }
 
   showPrice() {
     // show price only if the item in stock
-    if (this.props.menu.quantity > 0) {
+    if (this.state.quantity > 0) {
       return <p className="text-primary">${this.props.menu.price}</p>;
     } else {
       return <p className="text-danger">Sold out</p>;
@@ -36,6 +81,32 @@ class MenuItem extends Component {
   addToCart() {
     // TODO
     this.props.addToCart(this.props.menu);
+  }
+
+  deleteFood() {
+    MenuService
+      .deleteFood(this.props.menu.food_id)
+      .then((response) => {
+        alert(response.message);
+        // TODO: refresh menu list
+      })
+  }
+
+  updateFood() {
+    let food = {
+      id: this.props.menu.food_id,
+      name: this.state.name,
+      description: this.state.description,
+      quantity: this.state.quantity,
+      image_src: this.state.image_src,
+      price: this.state.price
+    }
+
+    MenuService
+      .updateFood(food)
+      .then((response) => {
+        alert(response.message);
+      })
   }
 
   userIsStaff() {
@@ -55,9 +126,10 @@ class MenuItem extends Component {
   showEditableTitle() {
     return (
       <Form.Control
-        value={this.props.menu.food_name}
+        value={this.state.name}
         id="inputTitle"
         type="text"
+        onChange={ e => this.setName(e.target.value)}
       />
     )
   }
@@ -68,7 +140,11 @@ class MenuItem extends Component {
       <InputGroup.Prepend>
         <InputGroup.Text>$</InputGroup.Text>
       </InputGroup.Prepend>
-      <FormControl value={this.props.menu.price} aria-label="Price" />
+      <FormControl
+        value={this.state.price} 
+        aria-label="Price"
+        onChange={ e => this.setPrice(e.target.value)}
+      />
     </InputGroup>
   
     )
@@ -81,7 +157,8 @@ class MenuItem extends Component {
         <Form.Control
           id="inputDescription"
           type="textbox"
-          value={this.props.menu.food_description}
+          value={this.state.description}
+          onChange={ e => this.setDescription(e.target.value)}
         />
       </>
     )
@@ -91,7 +168,7 @@ class MenuItem extends Component {
     if (this.state.editMode) {
       return this.showEditableDescription()
     } else {
-      return this.props.menu.food_description
+      return this.state.description
     }
   }
 
@@ -107,7 +184,7 @@ class MenuItem extends Component {
     } else {
       return (
         <Col>
-          {this.props.menu.food_name}
+          {this.state.name}
           {this.showPrice()}
       </Col>
       )
@@ -121,7 +198,7 @@ class MenuItem extends Component {
       return this.showEditableQuantity();
     }
 
-    if (this.props.menu.quantity > 0) {
+    if (this.state.quantity > 0) {
       return (
         <Col xs={3}>
           {this.buttonAddToCart()}
@@ -168,8 +245,10 @@ class MenuItem extends Component {
               Quantity in Stock
             </Card.Subtitle>
             <Form.Control
+              value={this.state.quantity}
               id="inputQuantity"
               type="number"
+              onChange={e => this.setQuantity(e.target.value)}
             />
         </Col>
      )
@@ -200,14 +279,16 @@ class MenuItem extends Component {
               </Col>
             </Row>
           </Card.Text>
-          <Row>
-            <Col>
-              <Button block variant="primary">Update</Button>
-            </Col>
-            <Col>
-              <Button block variant="danger">Delete</Button>
-            </Col>
-          </Row>
+          {this.state.editMode && (
+            <Row>
+              <Col>
+                <Button onClick={this.updateFood.bind(this)} block variant="primary">Update</Button>
+              </Col>
+              <Col>
+                <Button onClick={this.deleteFood.bind(this)} block variant="danger">Delete</Button>
+              </Col>
+            </Row>
+          )}
             {this.showCancelEditButton()}
         </Card.Body>
       </Card>
