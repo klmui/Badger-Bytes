@@ -38,7 +38,9 @@ class OrderItem extends Component {
   completeOrder() {
     OrderService
       .completeOrder(this.props.orderItem.orderId)
-      
+      .then((response) => {
+        alert(response.message);
+      })
   }
 
   showOrderCompleteButton() {
