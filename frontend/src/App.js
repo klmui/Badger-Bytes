@@ -13,9 +13,8 @@ import MenuView from './components/MenuView';
 import CartView from './components/CartView';
 import ProfileView from './components/ProfileView';
 import OrdersView from './components/OrdersView';
-import ReceiptView from './components/ReceiptView'
 import Navigation from './components/Navigation';
-
+import MenuAddView from './components/MenuAddView';
 import CheckoutView from './components/CheckoutView';
 import SignupView from './components/SignupView';
 import MenuService from './services/menu.service'
