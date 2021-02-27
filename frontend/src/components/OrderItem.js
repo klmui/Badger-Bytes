@@ -56,19 +56,23 @@ class OrderItem extends Component {
     
     //is used to print a new line 
 
-    var y = 20
+    var y = 40
     var orderNum = this.props.orderItem.order_id
+    var total = 0
 
     doc.text("Receipt for Order #" +  orderNum , 10, 10)
     doc.text("Date: " + this.showDate(), 10, 20 )
-    doc.text("Username: " + profile.username,10,30)
+    doc.text("Username: " + this.props.profile.username,10,30)
 
     for(var i = 0; i < foods.length; ++i){
       var price = foods[i].cartQuantity * foods[i].price 
-      var string = "Name: " + foods[i].food_name + ", Quantity: " + foods[i].cartQuantity + ", Price: " + price
+      total = total + price
+      var string = "Name: " + foods[i].food_name + ", Quantity: " + foods[i].cartQuantity + ", Price: $" + foods[i].price
       doc.text(string,10,y)
       y+=10
     }
+
+    doc.text("Total: $" + total, 10, y);
 
     doc.save('receipt' + orderNum + ".pdf")
 
