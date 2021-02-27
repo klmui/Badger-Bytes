@@ -11,15 +11,10 @@ exports.getOrders = (req, res) => {
             o.id as order_id,
             o.order_date_time, 
             o.pickup_date_time, 
-<<<<<<< HEAD
-            o.completed,
-            o.username, 
-            o.payment_type, 
-=======
+            u.car_description,
             o.payment_type, 
             o.completed,
             o.username, 
->>>>>>> main
             s.food_id, 
             f.name as food_name, 
             s.quantity_served, 
@@ -27,6 +22,7 @@ exports.getOrders = (req, res) => {
           FROM user_order o
           JOIN served s ON s.user_order_id = o.id
           JOIN food f ON s.food_id = f.id
+          JOIN user u ON u.username = o.username
           WHERE o.username = ?
           ORDER BY o.order_date_time DESC;
           `;
@@ -62,16 +58,10 @@ exports.getRestOrders = (req, res) => {
             o.id as order_id,
             o.order_date_time, 
             o.pickup_date_time, 
-<<<<<<< HEAD
             u.car_description,
             o.completed,
             o.username, 
             o.payment_type, 
-=======
-            o.payment_type, 
-            o.completed,
-            o.username, 
->>>>>>> main
             s.food_id, 
             f.name as food_name, 
             s.quantity_served, 

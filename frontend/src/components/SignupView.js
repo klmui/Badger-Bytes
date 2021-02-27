@@ -12,10 +12,10 @@ class SignupView extends Component {
       city: "",
       state: "",
       zip: "",
-      car_desription: "",
+      carDescription: "",
       type: "",
       email: "",
-      phone_number: "",
+      phoneNumber: "",
     };
     this.submitForm = this.submitForm.bind(this);
   }
@@ -24,12 +24,12 @@ class SignupView extends Component {
     const user = {
       username: this.state.username,
       password: this.state.password,
-      phone_number: this.state.phoneNumber,
+      phoneNumber: this.state.phoneNumber,
       address: this.state.address,
       city: this.state.city,
       state: this.state.state,
       zip: this.state.zip,
-      car_description: this.state.car_description,
+      carDescription: this.state.carDescription,
       type: this.state.type,
       email: this.state.email,
     };
@@ -104,9 +104,9 @@ class SignupView extends Component {
               <Form.Label>Car Description</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.car_description}
+                value={this.state.carDescription}
                 onChange={(e) =>
-                  this.setState({ car_description: e.target.value })
+                  this.setState({ carDescription: e.target.value })
                 }
               />
             </Form.Group>
@@ -136,9 +136,9 @@ class SignupView extends Component {
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.phone_number}
+                value={this.state.phoneNumber}
                 onChange={(e) =>
-                  this.setState({ phone_number: e.target.value })
+                  this.setState({ phoneNumber: e.target.value })
                 }
               />
             </Form.Group>

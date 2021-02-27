@@ -62,7 +62,7 @@ exports.login = (req, res) => {
             res.cookie('jwt', token, cookieOptions);
 
             console.log(token);
-            console.log(results[0]);
+            //console.log(results[0]);
 
             return resolve({
               username: username,
@@ -104,12 +104,12 @@ exports.signup = (req, res) => {
           "username": req.body.username,
           "password": req.body.password,
           "email": req.body.email,
-          "phone_number": req.body.phoneNumber,
+          "phoneNumber": req.body.phoneNumber,
           "address": req.body.address,
           "city": req.body.city,
           "state": req.body.state,
           "zip": req.body.zip,
-          "car_description": req.body.carDescription,
+          "carDescription": req.body.carDescription,
           "type": req.body.type
         };
 
@@ -154,7 +154,7 @@ exports.signup = (req, res) => {
               username: newUser.username,
               token: token,
               profile: {
-                username: newUser.username, email: newUser.email, phoneNumber: newUser.phone_number, address: newUser.address, city: newUser.city, state: newUser.state, zip: newUser.zip, carDescription: newUser.car_description, type: newUser.type
+                username: newUser.username, email: newUser.email, phoneNumber: newUser.phoneNumber, address: newUser.address, city: newUser.city, state: newUser.state, zip: newUser.zip, carDescription: newUser.carDescription, type: newUser.type
               }
             });
           }
@@ -178,12 +178,12 @@ exports.updateUser = (req, res) => {
           "username": req.body.username,
           "password": req.body.password,
           "email": req.body.email,
-          "phone_number": req.body.phoneNumber,
+          "phoneNumber": req.body.phoneNumber,
           "address": req.body.address,
           "city": req.body.city,
           "state": req.body.state,
           "zip": req.body.zip,
-          "car_description": req.body.carDescription,
+          "carDescription": req.body.carDescription,
           "type": req.body.type
         };
 
@@ -205,7 +205,7 @@ exports.updateUser = (req, res) => {
         // hash password - takes awhile so we need aysnc await
         const hashedPassword = await bcrypt.hash(newInfo.password, 8);
         const values = [
-          newInfo.username, hashedPassword, newInfo.email, newInfo.phone_number, newInfo.address, newInfo.city, newInfo.state, newInfo.zip, newInfo.car_description, newInfo.type, req.params.username
+          newInfo.username, hashedPassword, newInfo.email, newInfo.phoneNumber, newInfo.address, newInfo.city, newInfo.state, newInfo.zip, newInfo.carDescription, newInfo.type, req.params.username
         ];
 
         connection.query(query, values, async (error, results) => {
@@ -243,7 +243,7 @@ exports.updateUser = (req, res) => {
               username: newInfo.username,
               token: token,
               profile: {
-                username: newInfo.username, email: newInfo.email, phoneNumber: newInfo.phone_number, address: newInfo.address, city: newInfo.city, state: newInfo.state, zip: newInfo.zip, carDescription: newInfo.car_description, type: newInfo.type
+                username: newInfo.username, email: newInfo.email, phoneNumber: newInfo.phoneNumber, address: newInfo.address, city: newInfo.city, state: newInfo.state, zip: newInfo.zip, carDescription: newInfo.carDescription, type: newInfo.type
               }
             });
           }
