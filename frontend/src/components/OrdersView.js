@@ -98,15 +98,15 @@ class OrdersView extends Component {
       return "Your Order History"
     }
   }
-
+  
   render() {
     return (
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
          <OrderList
-          profile={this.props.profile}
           orderItems={this.state.orderItems} 
-          userIsStaff={this.userIsStaff.bind(this)} />
+          userIsStaff={this.userIsStaff.bind(this)}
+          profile={this.props.profile} />
       </Container>
     );
   }

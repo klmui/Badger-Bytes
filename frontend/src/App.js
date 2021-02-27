@@ -1,21 +1,24 @@
-import React, { Component } from "react";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-import HomeView from "./components/HomeView";
-import LoginView from "./components/LoginView";
-import MenuView from "./components/MenuView";
-import CartView from "./components/CartView";
-import ProfileView from "./components/ProfileView";
-import OrdersView from "./components/OrdersView";
-import Navigation from "./components/Navigation";
-
-import CheckoutView from "./components/CheckoutView";
-import SignupView from "./components/SignupView";
-import MenuAddView from "./components/MenuAddView";
-import MenuService from "./services/menu.service";
-import AuthService from "./services/auth.service";
+import HomeView from './components/HomeView';
+import LoginView from './components/LoginView';
+import MenuView from './components/MenuView';
+import CartView from './components/CartView';
+import ProfileView from './components/ProfileView';
+import OrdersView from './components/OrdersView';
+import Navigation from './components/Navigation';
+import MenuAddView from './components/MenuAddView';
+import CheckoutView from './components/CheckoutView';
+import SignupView from './components/SignupView';
+import MenuService from './services/menu.service'
+import AuthService from './services/auth.service';
 
 class App extends Component {
   constructor(props) {

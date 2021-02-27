@@ -37,7 +37,7 @@ class Cart extends Component {
   }
   
   render() {
-    return (
+     return (
       <Row className="justify-content-center">
         { (this.props.cartItems !== undefined && this.props.cartItems.length != 0) ? (
           <>
