@@ -25,13 +25,21 @@ function placeOrder(orderForm) {
     })
 }
 
+function completeOrder(order_id) {
+    return request({
+        url: '/orders/' + order_id,
+        method: 'PUT',
+        withCredentials: true,
+    })
+}
+
 // TODO
 function getDetail(id) {
 
 }
 
 const OrderService = {
-    getAllOrders, getUserOrders, placeOrder, getDetail
+    getAllOrders, getUserOrders, placeOrder, getDetail, completeOrder
 }
 
 export default OrderService;

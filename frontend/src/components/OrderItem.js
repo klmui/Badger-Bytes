@@ -37,7 +37,7 @@ class OrderItem extends Component {
 
   completeOrder() {
     OrderService
-      .completeOrder(this.props.orderItem.orderId)
+      .completeOrder(this.props.orderItem.order_id)
       .then((response) => {
         alert(response.message);
       })
@@ -53,7 +53,7 @@ class OrderItem extends Component {
       )
     } else {
       return (
-        <Button block variant="danger">Complete Order</Button>
+        <Button onClick={this.completeOrder.bind(this)} block variant="danger">Complete Order</Button>
       )
     }
   }
