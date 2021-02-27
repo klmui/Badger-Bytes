@@ -1,42 +1,52 @@
-const db = require('../models/auth.models.js');
+const db = require("../models/auth.models.js");
 
 exports.loginAction = (req, res) => {
-  db.login(req, res).then(data => {
-    return res.json(data);
-  }).catch(error => {
-    console.log(error);
-  });
-}
+  db.login(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 exports.logoutAction = (req, res) => {
-  db.logout(req, res).then(data => {
-    return res.json(data);
-  }).catch(error => {
-    console.log(error);
-  });
-}
+  db.logout(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 exports.signupAction = (req, res) => {
-  db.signup(req, res).then(data => {
-    return res.json(data);
-  }).catch(error => {
-    res.json(error);
-    //console.log(error);
-  });
-}
+  db.signup(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+      //console.log(error);
+    });
+};
 
 exports.updateUserAction = (req, res) => {
-  db.updateUser(req, res).then(data => {
-    return res.json(data);
-  }).catch(error => {
-    res.json(error);
-  });
-}
+  db.updateUser(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};
 
 exports.deleteUserAction = (req, res) => {
-  db.deleteUser(req, res).then(data => {
-    return res.json(data);
-  }).catch(error => {
-    res.json(error);
-  });
-}
+  db.deleteUser(req, res)
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};

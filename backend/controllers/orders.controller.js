@@ -19,6 +19,14 @@ exports.getRestOrdersAction = (req, res) => {
   });
 }
 
+exports.completeOrderAction = (req, res) => {
+  db.completeOrder(req, res).then(data => {
+    return res.json(data);
+  }).catch(error => {
+    res.json(error);
+  });
+}
+
 exports.submitOrderAction = (req, res) => {
   // Interact with the model
   db.submitOrder(req, res).then(data => {

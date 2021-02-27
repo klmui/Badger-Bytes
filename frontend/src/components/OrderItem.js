@@ -35,6 +35,9 @@ class OrderItem extends Component {
   }
 
   showOrderCompleteButton() {
+    if (!this.props.userIsStaff()) {
+      return;
+    }
     if (this.props.orderItem.completed) {
       return (
         <Button disabled block variant="secondary">Completed</Button>
@@ -98,16 +101,14 @@ class OrderItem extends Component {
               </Col>
               <Col>
               <Button block variant="light" disabled>Car Description</Button>
-                <Button block variant="outline-primary" disabled>TODO: CAR DESCRIPTION</Button>
+                <Button block variant="outline-primary" disabled>{this.props.profile.carDescription}</Button>
               </Col>
             </Row>
-            {/* Show controls only to staffs */}
-            {(this.props.userIsStaff()) && ( 
               <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
-                  <Button block variant="success">Print Order</Button>
+                  <Button block variant="success">Print Receipt</Button>
+                  {/* Show controls only to staffs */}
                   {this.showOrderCompleteButton()}
               </Row>
-            )}
               <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
                   <Button block variant="primary" onClick={this.generateReceipt}>Print Receipt</Button>
               </Row>

@@ -8,41 +8,13 @@ class OrdersView extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      orderItems: [{
-        "order_id": 424,
-        "order_date_time": "2021-02-27T02:19:15.000Z",
-        "pickup_date_time": "2021-02-27T01:00:00.000Z",
-        "payment_type": "APPLE_PAY",
-        "completed": 0,
-        "username": "lqc",
-        "food_id": 1,
-        "food_name": "Pizza",
-        "quantity_served": 3,
-        "unit_price": 5
-    },
-    {
-        "order_id": 424,
-        "order_date_time": "2021-02-27T02:19:15.000Z",
-        "pickup_date_time": "2021-02-27T01:00:00.000Z",
-        "payment_type": "APPLE_PAY",
-        "completed": 0,
-        "username": "lqc",
-        "food_id": 11,
-        "food_name": "Soda",
-        "quantity_served": 2,
-        "unit_price": 1
-    }],
-      //TODO: dummy user for testing
-      user: {
-        "username": "buckyupdate",
-        "type": "Staff" // change this to check whether it works for both customers and admins
-      }
+      orderItems: [],
     }
   }
   
   componentDidMount() {
     //TODO: change this.state.user to actual user info
-    if (this.state.user.type === undefined) {
+    if (this.props.profile.type === undefined) {
       return;
     }
 
@@ -54,7 +26,7 @@ class OrdersView extends Component {
   }
 
   userIsStaff() {
-    return this.state.user.type !== "Customer"
+    return this.props.profile.type !== "Customer"
   }
 
   // apologies for the messy code...
@@ -110,7 +82,7 @@ class OrdersView extends Component {
 
   fetchUserOrderList() {
     OrderService
-      .getUserOrders(this.state.user.username) //TODO: pass user info from <App> and change to this.props.~~
+      .getUserOrders(this.props.username) //TODO: pass user info from <App> and change to this.props.~~
       .then((response) => {
         let organizedJson = this.organizeOrderJson(response)
         this.setState({
@@ -132,6 +104,7 @@ class OrdersView extends Component {
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
          <OrderList
+          profile={this.props.profile}
           orderItems={this.state.orderItems} 
           userIsStaff={this.userIsStaff.bind(this)}
           profile={this.props.profile} />
