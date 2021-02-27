@@ -22,3 +22,11 @@ exports.getMenuAction = (req, res) => {
     console.log(err);
   });
 }
+
+exports.updateMenuAction = (req, res) => {
+  db.updateMenu(req, res).then(data => {
+    return res.json(data);
+  }).catch(error => {
+    console.log(error);
+  });
+}
