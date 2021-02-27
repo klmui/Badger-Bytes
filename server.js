@@ -22,11 +22,19 @@ app.use(cookieParser());
 global.bcrypt = bcrypt;
 global.jwt = jwt;
 
-let corsOption = {
-  origin: "http://localhost:8081"
-};
+// let corsOption = {
+//   origin: "http://localhost:8081",
+//   credentials: true
+// };
 
-app.use(cors(corsOption));
+// app.use(cors(corsOption));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8081"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

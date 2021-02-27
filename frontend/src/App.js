@@ -34,7 +34,7 @@ class App extends Component {
 
   componentDidMount() {
     // restore cart from LocalStorage
-    let localCart = localStorage.getItem("cart");
+    let localCart = localStorage.getItem("cart-" + this.state.username);
     localCart = JSON.parse(localCart);
     if (localCart) {
       this.setCartItems(localCart);
@@ -104,13 +104,7 @@ class App extends Component {
 
   convertToCartItem(itemObj) {
     // removes unnecessary keys from an item object from the API
-    let unnecessary_fields = [
-      "menu_id",
-      "restaurant_name",
-      "restaurant_description",
-      "restaurant_image",
-      "quantity",
-    ];
+    let unnecessary_fields = ["menu_id", "restaurant_name", "restaurant_description", "restaurant_image"]
     let itemCopy = Object.assign({}, itemObj);
     unnecessary_fields.forEach((key) => {
       delete itemCopy[key];
@@ -136,8 +130,15 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
+
+  clearCart = () => {
+    localStorage.setItem("cart-" + this.state.username, "[]");
+    this.setState({
+      cartItems: []
+    });
+  }
 
   removeFromCart = (item) => {
     let cartCopy = [...this.state.cartItems];
@@ -148,7 +149,7 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
 
   updateCartItem = (item, quantity) => {
@@ -173,7 +174,7 @@ class App extends Component {
 
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
-    localStorage.setItem("cart", cartString);
+    localStorage.setItem("cart-" + this.state.username, cartString);
   };
 
   render() {
@@ -204,6 +205,8 @@ class App extends Component {
               path="/cart"
               component={() => (
                 <CartView
+                  username={this.state.username}
+                  profile={this.state.profile}
                   cartItems={this.state.cartItems}
                   updateCartItem={this.updateCartItem.bind(this)}
                   removeFromCart={this.removeFromCart.bind(this)}
@@ -222,8 +225,24 @@ class App extends Component {
               )}
             />
             <Route path="/logout" component={HomeView} />
-            <Route path="/orders" component={OrdersView} />
-            <Route path="/checkout" component={CheckoutView} />
+            <Route 
+              path="/orders" 
+              component={() => (
+                <OrdersView
+                  profile={this.state.profile}
+                  username={this.state.username} 
+                />
+              )} 
+            />
+            <Route 
+              path="/checkout" 
+              render={(props) => (
+                <CheckoutView
+                  {...props} 
+                  clearCart={this.clearCart}
+                /> 
+              )} 
+            />
           </Switch>
         </div>
       </Router>

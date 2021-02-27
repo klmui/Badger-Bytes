@@ -6,23 +6,27 @@ import Row from 'react-bootstrap/Row'
 import Cart from './Cart';
 import PickupInfo from './PickupInfo';
 import PaymentInfo from './PaymentInfo';
+import OrderService from '../services/order.service'
 
 class CheckoutView extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      cartItems: [],
       time: 36000, // 10am
       carDescription: '',
+      cartItems: [],
+      username: '',
       paymentMethod: 'APPLE_PAY' // TODO: should default to user's preferred payment method
     }
   }
 
   componentDidMount() {
-    const { cartItems } = this.props.location.state;
+    const { cartItems, profile, username } = this.props.location.state;
     this.setState({
-      cartItems: cartItems
+      cartItems: cartItems,
+      carDescription: profile.carDescription,
+      username: username,
     })
   }
 
@@ -51,9 +55,31 @@ class CheckoutView extends Component {
   }
 
   submitOrder(){
-    // TODO: actually post to /order
+    let foods = [...this.state.cartItems];
+
+    foods.forEach((food) => {
+      food.foodId = food.food_id; // @Frontend: please keep the naming coherent (food_id vs foodId)
+      food.newQuantity = food.quantity - food.cartQuantity;
+      food.served = food.cartQuantity
+    })
+
+    let orderForm = {
+      username: this.state.username,
+      carDescription: this.state.carDescription,
+      paymentType: this.state.paymentMethod,
+      orderDateTime: new Date().toISOString(),
+      pickupDateTime: this.convertTimeToISO(),
+      foods: foods,
+    }
     
-    alert("TODO: pickuptime: " + this.convertTimeToISO() + ' car: ' + this.state.carDescription + ' payment: ' + this.state.paymentMethod)
+    OrderService
+      .placeOrder(orderForm)
+      .then((response) => {
+        alert(response.message)
+        // clear cart and take user to order history page
+        this.props.clearCart();
+        this.props.history.push("/orders")
+      })
   }
 
   goBack() {

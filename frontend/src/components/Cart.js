@@ -22,7 +22,8 @@ class Cart extends Component {
                   item={item} 
                   removeFromCart={this.props.removeFromCart} 
                   updateCartItem={this.props.updateCartItem} 
-                  checkoutMode={this.props.checkoutMode}/>
+                  checkoutMode={this.props.checkoutMode}
+                  />
       );
     }
 
@@ -57,7 +58,11 @@ class Cart extends Component {
             {!this.props.checkoutMode && (
               <Link to={{
                 pathname: '/checkout',
-                state: { cartItems: this.props.cartItems }
+                state: { 
+                  cartItems: this.props.cartItems, 
+                  profile: this.props.profile,
+                  username: this.props.username,
+                }
               }}>
                 <Button size="lg" variant="outline-primary">Go to checkout · ${this.getTotal()}</Button>
               </Link>

@@ -15,7 +15,8 @@ function signup(user) {
       "car_description": user.car_description,
       "type": user.type,
       "email": user.email
-    }
+    },
+    withCredentials: true,
   });
 }
 
@@ -26,7 +27,8 @@ function login(user) {
     data: {
       "username": user.username,
       "password": user.password,
-    }
+    },
+    withCredentials: true,
   });
 }
 
