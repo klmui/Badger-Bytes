@@ -109,12 +109,9 @@ class OrderItem extends Component {
               </Col>
             </Row>
               <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
-                  <Button block variant="success">Print Receipt</Button>
+                  <Button block variant="primary" onClick={this.generateReceipt}>Print Receipt</Button>
                   {/* Show controls only to staffs */}
                   {this.showOrderCompleteButton()}
-              </Row>
-              <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
-                  <Button block variant="primary" onClick={this.generateReceipt}>Print Receipt</Button>
               </Row>
             
           </Card.Text>
