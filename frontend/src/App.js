@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+import {Button} from "react-bootstrap";
 
 import HomeView from "./components/HomeView";
 import LoginView from "./components/LoginView";
@@ -26,10 +28,13 @@ class App extends Component {
       token: null,
       profile: null,
       type: null,
+      alert: false,
+      message:""
     };
     this.signup = this.signup.bind(this);
     this.signOut = this.signOut.bind(this);
     this.editProfile = this.editProfile.bind(this);
+    this.myalert = this.myalert.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +99,7 @@ class App extends Component {
         cartItems: [],
       });
     });
+    this.myalert("Signed out");
   }
 
   setCartItems = (newCartItems) => {
@@ -137,6 +143,7 @@ class App extends Component {
     // store in localStorage
     let cartString = JSON.stringify(cartCopy);
     localStorage.setItem("cart", cartString);
+    this.myalert("Item added");
   };
 
   removeFromCart = (item) => {
@@ -176,11 +183,25 @@ class App extends Component {
     localStorage.setItem("cart", cartString);
   };
 
+  myalert(message) {
+    this.setState({alert:true});
+    this.setState({message:message});
+  };
+
   render() {
     return (
       <Router>
         <div>
           <Navigation profile={this.state.profile} signOut={this.signOut} />
+          <Alert show={this.state.alert} variant="success">
+            <Alert.Heading> Message </Alert.Heading>
+            <p>{this.state.message}</p>
+            <div className="d-flex justify-content-end">
+              <Button onClick={() => this.setState({alert:false})} variant="outline-success">
+                Close
+              </Button>
+            </div>
+          </Alert>
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route
@@ -227,6 +248,7 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
+
     );
   }
 }
