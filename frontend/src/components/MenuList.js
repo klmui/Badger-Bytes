@@ -13,7 +13,14 @@ class MenuList extends Component {
     // then return a list of all Cards
     let menuCardList = [];
     for (const menu of this.props.menuItems) {
-      menuCardList.push(<MenuItem className="col-sm-6" key={menu.id} menu={menu} addToCart={this.props.addToCart}/>);
+      menuCardList.push(
+        <MenuItem
+          className="col-sm-6" 
+          key={menu.id} 
+          menu={menu} 
+          addToCart={this.props.addToCart}
+          profile={this.props.profile}
+        />);
     }
     
     // This filler is used to prevent flexbox from 

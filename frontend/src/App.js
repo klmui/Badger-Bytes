@@ -13,6 +13,7 @@ import Navigation from "./components/Navigation";
 
 import CheckoutView from "./components/CheckoutView";
 import SignupView from "./components/SignupView";
+import MenuAddView from "./components/MenuAddView";
 import MenuService from "./services/menu.service";
 import AuthService from "./services/auth.service";
 
@@ -63,7 +64,7 @@ class App extends Component {
       });
     });
   }
-
+  
   editProfile(user) {
     AuthService.editProfile(user, this.state.token).then((response) => {
       console.log(response);
@@ -192,12 +193,22 @@ class App extends Component {
               path="/signup"
               component={() => <SignupView signup={this.signup} />}
             />
+            <Route 
+              path="/menu/add" 
+              render={(props) => (
+                <MenuAddView
+                  {...props} 
+                /> 
+              )} 
+            />
             <Route
               path="/menu"
-              component={() => (
+              render={(props) => (
                 <MenuView
+                  {...props}
                   menuItems={this.state.menuItems}
                   addToCart={this.addToCart.bind(this)}
+                  profile={this.state.profile}
                 />
               )}
             />
