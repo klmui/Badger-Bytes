@@ -12,9 +12,10 @@ class ProfileView extends Component {
       city: this.props.profile.city,
       state: this.props.profile.state,
       zip: this.props.profile.zip,
-      car_description: this.props.profile.carDescription,
+      carDescription: this.props.profile.carDescription,
       type: this.props.profile.type,
       email: this.props.profile.email,
+      phoneNumber: this.props.profile.phoneNumber,
     };
     this.submitForm = this.submitForm.bind(this);
   }
@@ -23,12 +24,12 @@ class ProfileView extends Component {
     const user = {
       username: this.state.username,
       password: this.state.password,
-      phone_number: this.state.phoneNumber,
+      phoneNumber: this.state.phoneNumber,
       address: this.state.address,
       city: this.state.city,
       state: this.state.state,
       zip: this.state.zip,
-      car_description: this.state.car_description,
+      carDescription: this.state.carDescription,
       type: this.state.type,
       email: this.state.email,
     };
@@ -110,9 +111,9 @@ class ProfileView extends Component {
               <Form.Label>Car Description</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.car_description}
+                value={this.state.carDescription}
                 onChange={(e) =>
-                  this.setState({ car_description: e.target.value })
+                  this.setState({ carDescription: e.target.value })
                 }
               />
             </Form.Group>
@@ -142,9 +143,9 @@ class ProfileView extends Component {
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type={"text"}
-                value={this.state.phone_number}
+                value={this.state.phoneNumber}
                 onChange={(e) =>
-                  this.setState({ phone_number: e.target.value })
+                  this.setState({ phoneNumber: e.target.value })
                 }
               />
             </Form.Group>
