@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import { AiOutlinePlus } from "react-icons/ai";
+import { jsPDF } from 'jspdf';
 
 import Cart from './Cart';
 import '../App.css';
@@ -48,6 +49,36 @@ class OrderItem extends Component {
     }
   }
 
+  generateReceipt = () =>{
+
+    var foods = this.props.orderItem.foods
+    var doc = new jsPDF();
+    
+    //is used to print a new line 
+
+    var y = 40
+    var orderNum = this.props.orderItem.order_id
+    var total = 0
+
+    doc.text("Receipt for Order #" +  orderNum , 10, 10)
+    doc.text("Date: " + this.showDate(), 10, 20 )
+    doc.text("Username: " + this.props.profile.username,10,30)
+
+    for(var i = 0; i < foods.length; ++i){
+      var price = foods[i].cartQuantity * foods[i].price 
+      total = total + price
+      var string = "Name: " + foods[i].food_name + ", Quantity: " + foods[i].cartQuantity + ", Price: $" + foods[i].price
+      doc.text(string,10,y)
+      y+=10
+    }
+
+    doc.text("Total: $" + total, 10, y);
+
+    doc.save('receipt' + orderNum + ".pdf")
+
+
+  }
+
   render() {
     return (
       <Card className="col-md-8">
@@ -82,6 +113,10 @@ class OrderItem extends Component {
                   {/* Show controls only to staffs */}
                   {this.showOrderCompleteButton()}
               </Row>
+              <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
+                  <Button block variant="primary" onClick={this.generateReceipt}>Print Receipt</Button>
+              </Row>
+            
           </Card.Text>
         </Card.Body>
       </Card>
