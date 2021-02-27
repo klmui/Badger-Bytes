@@ -59,7 +59,7 @@ class OrdersView extends Component {
           food_id: orderObj.food_id,
           food_name: orderObj.food_name,
           cartQuantity: orderObj.quantity_served, // to be reused in <CartItem>
-          price: orderObj.quantity_served, // to be used in <CartItem>
+          price: orderObj.unit_price, // to be used in <CartItem>
         })
       })
 
