@@ -9,6 +9,7 @@ import { jsPDF } from 'jspdf';
 
 import Cart from './Cart';
 import '../App.css';
+import OrderService from '../services/order.service';
 
 class OrderItem extends Component {
   constructor(props) {
@@ -32,6 +33,12 @@ class OrderItem extends Component {
     return new Date(
         this.props.orderItem.pickup_date_time
       ).toLocaleDateString()
+  }
+
+  completeOrder() {
+    OrderService
+      .completeOrder(this.props.orderItem.orderId)
+      
   }
 
   showOrderCompleteButton() {
@@ -79,6 +86,14 @@ class OrderItem extends Component {
 
   }
 
+  showCarDescription() {
+    if(this.props.orderItem.car_description) {
+      return this.props.orderItem.car_description
+    } else {
+      return "Not provided"
+    }
+  }
+
   render() {
     return (
       <Card className="col-md-8">
@@ -105,7 +120,7 @@ class OrderItem extends Component {
               </Col>
               <Col>
               <Button block variant="light" disabled>Car Description</Button>
-                <Button block variant="outline-primary" disabled>{this.props.profile.carDescription}</Button>
+                <Button block variant="outline-primary" disabled>{this.showCarDescription()}</Button>
               </Col>
             </Row>
               <Row style={{marginTop: "1rem"}} className="justify-content-between align-center">
