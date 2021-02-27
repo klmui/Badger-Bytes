@@ -104,7 +104,6 @@ class OrdersView extends Component {
       <Container>
         <h1 className="view-header">{this.showHeader()}</h1>
          <OrderList
-          profile={this.props.profile}
           orderItems={this.state.orderItems} 
           userIsStaff={this.userIsStaff.bind(this)}
           profile={this.props.profile} />
