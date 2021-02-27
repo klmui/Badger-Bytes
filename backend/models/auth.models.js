@@ -62,10 +62,14 @@ exports.login = (req, res) => {
             res.cookie('jwt', token, cookieOptions);
 
             console.log(token);
+            console.log(results[0]);
 
             return resolve({
               username: username,
-              token: token
+              token: token,
+              profile: {
+                username: results[0].username, email: results[0].email, phoneNumber: results[0].phone_number, address: results[0].address, city: results[0].city, state: results[0].state, zip: results[0].zip, carDescription: results[0].car_description, type: results[0].type
+              }
             });
           }
         });
@@ -148,7 +152,10 @@ exports.signup = (req, res) => {
 
             return resolve({
               username: newUser.username,
-              token: token
+              token: token,
+              profile: {
+                username: newUser.username, email: newUser.email, phoneNumber: newUser.phone_number, address: newUser.address, city: newUser.city, state: newUser.state, zip: newUser.zip, carDescription: newUser.car_description, type: newUser.type
+              }
             });
           }
         });
@@ -234,7 +241,55 @@ exports.updateUser = (req, res) => {
 
             return resolve({
               username: newInfo.username,
-              token: token
+              token: token,
+              profile: {
+                username: newInfo.username, email: newInfo.email, phoneNumber: newInfo.phone_number, address: newInfo.address, city: newInfo.city, state: newInfo.state, zip: newInfo.zip, carDescription: newInfo.car_description, type: newInfo.type
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+}
+
+exports.deleteUser = (req, res) => {
+  return new Promise((resolve, reject) => {
+    
+    // Connect to database
+    pool.getConnection(async (err, connection) => {
+      if (err) {
+        console.log("Error connecting to database!");
+        return reject(err);
+      } else {
+
+        const query = `
+          DELETE FROM user
+          WHERE username = ?;
+        `;
+        const values = [
+          [req.params.username]
+        ];
+
+        connection.query(query, values, async (error, results) => {
+          // Always release the connection back
+          connection.release();
+
+          if (error) {
+            console.log("Error deleting user");
+            return reject({
+              message: "Error deleting user"
+            });
+          } else {
+
+            //set cookie to user logged out
+            res.cookie('jwt', 'logout', {
+              expires: new Date(Date.now() + 2 * 1000),
+              httpOnly: true
+            });
+        
+            return resolve({
+              message: "User account deleted"
             });
           }
         });

@@ -26,3 +26,12 @@ exports.completeOrderAction = (req, res) => {
     res.json(error);
   });
 }
+
+exports.submitOrderAction = (req, res) => {
+  // Interact with the model
+  db.submitOrder(req, res).then(data => {
+    return res.json(data);
+  }).catch(err => {
+    console.log(err);
+  });
+}

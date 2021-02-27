@@ -11,9 +11,15 @@ exports.getOrders = (req, res) => {
             o.id as order_id,
             o.order_date_time, 
             o.pickup_date_time, 
+<<<<<<< HEAD
             o.completed,
             o.username, 
             o.payment_type, 
+=======
+            o.payment_type, 
+            o.completed,
+            o.username, 
+>>>>>>> main
             s.food_id, 
             f.name as food_name, 
             s.quantity_served, 
@@ -56,10 +62,16 @@ exports.getRestOrders = (req, res) => {
             o.id as order_id,
             o.order_date_time, 
             o.pickup_date_time, 
+<<<<<<< HEAD
             u.car_description,
             o.completed,
             o.username, 
             o.payment_type, 
+=======
+            o.payment_type, 
+            o.completed,
+            o.username, 
+>>>>>>> main
             s.food_id, 
             f.name as food_name, 
             s.quantity_served, 
@@ -127,6 +139,72 @@ exports.completeOrder = (req, res) => {
           }
         });
       }
+    });
+  });
+}
+
+exports.submitOrder = (req, res) => {
+  return new Promise((resolve, reject) => {
+    // Connect to database
+    pool.getConnection((err, connection) => {
+      let query = `
+        INSERT INTO user_order (order_date_time, pickup_date_time, payment_type, username) 
+        VALUES ?
+      `;
+      let values = [
+        [req.body.orderDateTime, req.body.pickupDateTime, req.body.paymentType, req.body.username]
+      ];
+      connection.query(query, [values], (error, rows, fields) => {
+        if (error) {
+          console.log("Error in query 1!");
+          reject(err);
+        } else {
+          const orderId = rows.insertId;
+          const servedTableQuery = `
+            INSERT INTO served (food_id, quantity_served, user_order_id)
+            VALUES ?
+          `;
+          const foodTableQuery = `
+          UPDATE food
+          SET quantity = ?
+          WHERE id = ?
+        `;
+
+          let servedTableValues = [];
+
+          req.body.foods.forEach(food => {
+            let temp1= [];
+            temp1.push(food.foodId);
+            temp1.push(food.served);
+            temp1.push(orderId);
+            servedTableValues.push(temp1);
+
+            let foodsTableValues = [];
+            foodsTableValues.push(food.newQuantity);
+            foodsTableValues.push(food.foodId);
+            
+            connection.query(foodTableQuery, foodsTableValues, (error, rows, fields) => {
+              if (error) {
+                console.log("Error in query 3!");
+                //connection.release();
+                reject(err);
+              } else {
+                //connection.release();
+                resolve({ message: "Order successful!" });
+              }
+            });
+          });
+
+          connection.query(servedTableQuery, [servedTableValues], (error, rows, fields) => {
+            if (error) {
+              console.log("Error in query 2!");
+              reject(err);
+            } else {
+              resolve({ message: "Order successful!", orderId: orderId });
+            }
+          });
+        }
+      });
     });
   });
 }

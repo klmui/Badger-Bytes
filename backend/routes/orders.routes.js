@@ -9,7 +9,8 @@ router.route('/orders/:username')
   .get(authMiddleware.requireLogin, ordersController.getOrdersAction);
 
 router.route('/orders')
-  .get(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.getRestOrdersAction);
+  .get(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.getRestOrdersAction)
+  .post(authMiddleware.requireLogin, ordersController.submitOrderAction);
 
 router.route('/orders/:order_id')
   .put(authMiddleware.requireLogin, authMiddleware.isStaff, ordersController.completeOrderAction);
