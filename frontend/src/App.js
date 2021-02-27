@@ -26,6 +26,9 @@ class App extends Component {
     this.state = {
       cartItems: [],
       menuItems: [],
+      restaurant_name: '',
+      restaurant_description: '',
+      restaurant_image: '',
       username: null,
       token: null,
       profile: null,
@@ -83,6 +86,9 @@ class App extends Component {
     MenuService.getList().then((response) => {
       this.setState({
         menuItems: response,
+        restaurant_name: response[0].restaurant_name,
+        restaurant_description: response[0].restaurant_description,
+        restaurant_image: response[0].restaurant_image
       });
     });
   }
@@ -187,7 +193,15 @@ class App extends Component {
         <div>
           <Navigation profile={this.state.profile} signOut={this.signOut} />
           <Switch>
-            <Route exact path="/" component={HomeView} />
+            <Route 
+              exact path="/" 
+              render={(props) => (
+                <HomeView
+                  {...props}
+                  restaurant_description={this.state.restaurant_description}
+                  restaurant_image={this.state.restaurant_image}
+                  restaurant_name={this.state.restaurant_name}
+                />)} />
             <Route
               path="/login"
               component={() => <LoginView login={this.login.bind(this)} />}
@@ -212,6 +226,7 @@ class App extends Component {
                   menuItems={this.state.menuItems}
                   addToCart={this.addToCart.bind(this)}
                   profile={this.state.profile}
+                  fetchMenuList={this.fetchMenuList.bind(this)}
                 />
               )}
             />
