@@ -7,6 +7,7 @@ exports.getUsage = (req, res) => {
         JOIN served as s on u.id=s.user_order_id
         JOIN food as f on s.food_id=f.id
         WHERE u.order_date_time BETWEEN ? AND ?
+        GROUP BY u.id
         ORDER BY u.order_date_time DESC;
       `;
       const values = [req.body.date1, req.body.date2];
