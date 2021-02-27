@@ -28,7 +28,7 @@ class LoginView extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="center">
         <Form>
           <Form.Row>
             <Form.Group
@@ -39,7 +39,7 @@ class LoginView extends Component {
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type={"text"}
-                placeholder="username"
+                placeholder="Username"
                 value={this.state.username}
                 style={{ width: "150px" }}
                 onChange={(e) => this.setState({ username: e.target.value })}
@@ -59,7 +59,7 @@ class LoginView extends Component {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type={"password"}
-                placeholder="password"
+                placeholder="Password"
                 value={this.state.password}
                 style={{ width: "150px" }}
                 onChange={(e) => this.setState({ password: e.target.value })}

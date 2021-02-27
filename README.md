@@ -7,7 +7,7 @@ Web-based ordering system.
 3. Git
 4. An editor like `VSCode`
 5. Install `Postman` to test routes
-5. Get the `.env` file from a developer
+
 
 ### Build Command Instructions
 1. Clone the repository
@@ -17,10 +17,9 @@ Web-based ordering system.
 5. `npm install`
 
 ### Run Instructions
-1. Start local DB or use the remote one
 2. Run web server: `node server.js` (localhost:8080)
     - You can run `nodemon` if you don't want to run the command above every backend change.
-3. Run frontend: `cd frontend` and `npm start` in a different terminal
+3. Run frontend: `cd frontend` and `npm start` in a different terminal (localhost:8081)
 
 ### Reminders
 - Please work in your own branch and make a PR when ready.
