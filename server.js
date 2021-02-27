@@ -13,6 +13,7 @@ const indexRoutes = require('./backend/routes/index.routes');
 const authRoutes = require('./backend/routes/auth.routes');
 const foodRoutes = require('./backend/routes/food.routes');
 const ordersRoutes = require('./backend/routes/orders.routes');
+const usageRoutes = require('./backend/routes/usage.routes');
 
 // More init
 const app = express();
@@ -44,6 +45,7 @@ app.use('/', indexRoutes);
 app.use('/', authRoutes);
 app.use('/', foodRoutes);
 app.use('/', ordersRoutes);
+app.use('/', usageRoutes);
 
 // Last case: url not found
 app.get('/*', function(req, res){
