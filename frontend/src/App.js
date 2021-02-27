@@ -17,6 +17,7 @@ import Navigation from './components/Navigation';
 import MenuAddView from './components/MenuAddView';
 import CheckoutView from './components/CheckoutView';
 import SignupView from './components/SignupView';
+import UsageReportView from './components/UsageReportView';
 import MenuService from './services/menu.service'
 import AuthService from './services/auth.service';
 
@@ -269,6 +270,14 @@ class App extends Component {
                 <CheckoutView
                   {...props} 
                   clearCart={this.clearCart}
+                /> 
+              )} 
+            />
+            <Route 
+              path="/usageReport" 
+              render={(props) => (
+                <UsageReportView
+                  {...props} 
                 /> 
               )} 
             />
